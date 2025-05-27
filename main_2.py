@@ -172,8 +172,6 @@ while running:
                 elif exit_button.collidepoint(mouse_x, mouse_y):
                     game_state = CONFIRM_EXIT
 
-
-
         elif game_state == ALCHEMIST_LABORATORY:
             if not alchemist_inventory_loaded:
                 alchemist.load_alchemist_inventory(selected_character)
