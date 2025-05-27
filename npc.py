@@ -96,7 +96,7 @@ class Alchemist(Merchant):  #creates an instance of HealthPotion class by itself
                                                    5, 10))
             self.inventory.add_item(magic_orb)
 
-        elif selected_character.name == "Druid":
+        elif selected_character.name == "Swarmcaller":
             for _ in range(3):
                 self.inventory.add_item(ManaPotion("Mana Potion",
                                                    resource_path("assets/images/m_potion.png"),
@@ -135,7 +135,7 @@ class Blacksmith(Merchant):
             self.inventory.add_item(wiz_cloak_1)
             self.inventory.add_item(wiz_cloak_2)
             self.inventory.add_item(wiz_hat)
-        elif selected_character.name == "Druid":
+        elif selected_character.name == "Swarmcaller":
             self.inventory.add_item(hive_staff)
             self.inventory.add_item(moss_cloak)
             self.inventory.add_item(rose_crown)

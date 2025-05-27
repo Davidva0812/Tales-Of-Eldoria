@@ -93,13 +93,14 @@ CELL_PADDING = 5  # Distance between cells
 # Fonts and textures
 title_font = pygame.font.Font(resource_path(
     "assets/fonts/MedievalSharp-Regular.ttf"), 82)
-depiction_font = pygame.font.SysFont("arial", 33, italic=True)
+depiction_font = pygame.font.SysFont("arial", 30, italic=True)
 font = pygame.font.Font(resource_path(
     "assets/fonts/MedievalSharp-Regular.ttf"), 60)
 dialogue_font = pygame.font.Font(resource_path(
     "assets/fonts/MedievalSharp-Regular.ttf"), 30)
 button_font = pygame.font.Font(None, 36)
 stats_font = pygame.font.Font(None, 30)
+ability_font = pygame.font.Font(None, 28)
 wood_texture = pygame.image.load(resource_path("assets/images/other/wooden_pattern.jpg")).convert_alpha()
 wood_texture = pygame.transform.scale(wood_texture, (200, 50))
 item_font = pygame.font.Font(None, 20)
