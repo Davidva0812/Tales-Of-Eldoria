@@ -1,20 +1,12 @@
 import random
-#import pygame
 from items import *
 from settings_images import die_channel, die_theme
-
-
-#pygame.init()
-#pygame.mixer.init()
 
 
 class Inventory:
     def __init__(self):
         self.items = []
         self.max_size = 8  #2
-
-    """def is_full(self):
-        return len(self.items) >= self.max_size"""
 
     def add_item(self, item):
         if len(self.items) <= self.max_size:
@@ -362,52 +354,28 @@ class Druid(Character):
     def __init__(self):
         super().__init__("Swarmcaller", health=4, attack=16, armor=0, mana=30,
                         special_ability="Summon Swarm",
-                         special_ability_depiction="SUMMON SWARM: Unleashes a stinging cloud of bees, wasps and hornets.",
+                         special_ability_depiction="SUMMON SWARM: Unleashes a stinging cloud of insects.",
                         depiction="A subtype of Druid, commands the insects.")
+        self.inventory.add_item(whip)
 
+    def summon_swarm(self, enemy):
+        if not self.alive:
+            print(f"{self.name} is dead and cannot use Summon Swarm!")
+            return
+        if self.mana >= 10:
+            damage = 8 + self.level * 2
+            self.mana -= 10
+            print(f"{self.name} casts Summon Swarm at {enemy.name}!")
+            enemy.enemy_take_damage(damage)
+            if enemy.health <= 0:
+                self.enemy_is_dead(enemy)
+        else:
+            print(f"{self.name} does not have enough mana for the spell!")
 
-#for stats later on profile state:
-"""for i, character in enumerate(characters):
-    draw_button(character.name, 300, 150 + i * 60, 200, 50)
-if hovered_character:
-    stats_text = button_font.render(
-        f"HP: {hovered_character.hp}, ATK: {hovered_character.attack}, "
-        f"Armor: {hovered_character.armor}, Mana: {hovered_character.mana}, "
-        f"Skill: {hovered_character.special_ability}",
-        True, BLACK
-    )
-    screen.blit(stats_text, (
-        SCREEN_WIDTH // 2 - stats_text.get_width() // 2,
-        500))"""
-
-
-#képek rétegezése profilba:
-"""# Kép az üres slothoz
-empty_slot_image = pygame.image.load("assets/images/empty_slot.png").convert_alpha()
-
-# Kép a felszereléshez (pl. fegyver, sisak, stb.)
-helmet_image = pygame.image.load("assets/images/helmet.png").convert_alpha()
-
-# Define equipment slots (x, y, width, height)
-equipment_slots = [
-    {"rect": pygame.Rect(SCREEN_WIDTH // 2 - 185, 185, 50, 50), "item": helmet_image}  # A slot, ahol a sisak kerül
-]
-
-# Kirajzolás
-for slot in equipment_slots:
-    # Rajzolj üres slotot
-    screen.blit(empty_slot_image, slot["rect"])
-
-    # Ha van felszerelés, akkor azt is rajzold rá
-    if slot["item"]:
-        # A fegyver/sisak képének pozicionálása
-        item_rect = slot["rect"]
-        screen.blit(slot["item"], (item_rect.x + (item_rect.width - slot["item"].get_width()) // 2,
-                                   item_rect.y + (item_rect.height - slot["item"].get_height()) // 2))"""
-
-"""Kép kiválasztása: Az empty_slot_image az a kép, ami az üres helyet jelöli, 
-és az item az a kép, amit az üres helyre helyezel (pl. egy sisak vagy fegyver).
-Rétegzés: Az alap képet (üres slot) a screen.blit() segítségével rakod le a képernyőre, 
-majd a tényleges felszerelést (pl. sisakot) ugyanoda rétegezed rá.
-A képek megfelelő pozicionálásához és rétegzéséhez az item_rect változót használod, 
-hogy biztosítsd, hogy a felszerelés pontosan az üres helyre kerül."""
+    def nature_favor(self):
+        """Returns the modified attack value based on Nature's Favor chance."""
+        base_attack = self.attack
+        if random.random() < 0.2:
+            print(f"Nature's Favor! {self.name}'s attack is empowered!")
+            return base_attack + (base_attack / 2)
+        return base_attack

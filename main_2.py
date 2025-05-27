@@ -22,10 +22,6 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
-test_path = resource_path("assets/images/h_potion.png")
-print("H_POTION elérési út:", test_path)
-print("Létezik:", os.path.exists(test_path))
-
 
 sleep_button_rect = pygame.Rect(300, 200, 100, 30)
 (start_button, exit_button, lab_button, blacksmith_button, back_button,
@@ -171,8 +167,6 @@ while running:
                     game_state = EXPLORE
                 elif exit_button.collidepoint(mouse_x, mouse_y):
                     game_state = CONFIRM_EXIT
-
-
 
         elif game_state == ALCHEMIST_LABORATORY:
             if not alchemist_inventory_loaded:
@@ -456,6 +450,9 @@ while running:
                         elif isinstance(selected_character, Necromancer):
                             selected_character.reanimate(selected_enemy)
                             selected_enemy.enemy_attack(selected_character)
+                        elif isinstance(selected_character, Druid):
+                            selected_character.summon_swarm(selected_enemy)
+                            selected_enemy.enemy_attack(selected_character)
                 if surrender_button.collidepoint(mouse_x, mouse_y):
                     if selected_character.health <= 0 or selected_enemy.health <= 0:
                         pass
@@ -658,9 +655,20 @@ while running:
                 screen.blit(necromancer_img, necromancer_rect)
                 pygame.draw.rect(screen, border_color, reanimate_rect)
                 screen.blit(reanimate_img, (SCREEN_WIDTH // 2 + 180, 305))
-                reanimate_text = button_font.render(
+                reanimate_text = stats_font.render(
                     f"{selected_character.special_ability}", True, IVORY)
                 screen.blit(reanimate_text, (SCREEN_WIDTH // 2 + 245, 316))
+                cells = draw_grid(border_color, 0, 200, selected_character.inventory,
+                                  selected_character.equipped_items, selected_character)
+            elif selected_character == characters[5]:  # Druid
+                screen.fill(LIGHT_BROWN)
+                border_color = GREEN
+                screen.blit(druid_img, druid_rect)
+                pygame.draw.rect(screen, border_color, hive_rect)
+                screen.blit(hive_img, (SCREEN_WIDTH // 2 + 180, 305))
+                hive_text = ability_font.render(
+                    f"{selected_character.special_ability}", True, IVORY)
+                screen.blit(hive_text, (SCREEN_WIDTH // 2 + 245, 316))
                 cells = draw_grid(border_color, 0, 200, selected_character.inventory,
                                   selected_character.equipped_items, selected_character)
             else:
@@ -785,6 +793,8 @@ while running:
             draw_hero_attack_and_armor(screen, selected_character.attack, selected_character.armor)
         if selected_character == characters[2]:
             draw_dodge_chance(screen, 20, 520)
+        if selected_character == characters[5]:
+            draw_nature_favor(screen, 20, 520)
         if selected_character == characters[0] or selected_character == characters[2]:
             draw_stamina_bar(screen, 60, 470, selected_character.stamina, selected_character.max_stamina)
         else:

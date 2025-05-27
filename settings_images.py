@@ -1,6 +1,6 @@
-import pygame
 from locations import *
 from utils import resource_path
+
 
 pygame.init()
 pygame.mixer.init()
@@ -93,13 +93,14 @@ CELL_PADDING = 5  # Distance between cells
 # Fonts and textures
 title_font = pygame.font.Font(resource_path(
     "assets/fonts/MedievalSharp-Regular.ttf"), 82)
-depiction_font = pygame.font.SysFont("arial", 33, italic=True)
+depiction_font = pygame.font.SysFont("arial", 30, italic=True)
 font = pygame.font.Font(resource_path(
     "assets/fonts/MedievalSharp-Regular.ttf"), 60)
 dialogue_font = pygame.font.Font(resource_path(
     "assets/fonts/MedievalSharp-Regular.ttf"), 30)
 button_font = pygame.font.Font(None, 36)
 stats_font = pygame.font.Font(None, 30)
+ability_font = pygame.font.Font(None, 28)
 wood_texture = pygame.image.load(resource_path("assets/images/other/wooden_pattern.jpg")).convert_alpha()
 wood_texture = pygame.transform.scale(wood_texture, (200, 50))
 item_font = pygame.font.Font(None, 20)
@@ -128,6 +129,9 @@ rogue_rect = rogue_img.get_rect(center=(SCREEN_WIDTH // 2 + 45, SCREEN_HEIGHT //
 wizard_img = pygame.image.load(resource_path("assets/images/other/wizard.jpg")).convert_alpha()
 wizard_img = pygame.transform.smoothscale(wizard_img, (250, 260))
 wizard_rect = wizard_img.get_rect(center=(SCREEN_WIDTH // 2 + 45, SCREEN_HEIGHT // 2))
+druid_img = pygame.image.load(resource_path("assets/images/other/druid.jpg")).convert_alpha()
+druid_img = pygame.transform.smoothscale(druid_img, (250, 260))
+druid_rect = wizard_img.get_rect(center=(SCREEN_WIDTH // 2 + 45, SCREEN_HEIGHT // 2))
 
 coin_img = pygame.image.load(resource_path("assets/images/other/coin.png")).convert_alpha()
 coin_img = pygame.transform.scale(coin_img, (55, 55))
@@ -150,6 +154,9 @@ reanimate_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 305, 55, 55)
 stab_img = pygame.image.load(resource_path("assets/images/other/stab.png")).convert_alpha()
 stab_img = pygame.transform.scale(stab_img, (55, 55))
 stab_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 305, 55, 55)
+hive_img = pygame.image.load(resource_path("assets/images/other/hive.jpg")).convert_alpha()
+hive_img = pygame.transform.scale(hive_img, (55, 55))
+hive_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 305, 55, 55)
 xp_img = pygame.image.load(resource_path("assets/images/other/XP1.png")).convert_alpha()
 xp_img = pygame.transform.scale(xp_img, (55, 55))
 xp_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 365, 55, 55)
