@@ -354,7 +354,7 @@ class Druid(Character):
     def __init__(self):
         super().__init__("Swarmcaller", health=4, attack=16, armor=0, mana=30,
                         special_ability="Summon Swarm",
-                         special_ability_depiction="SUMMON SWARM: Unleashes a stinging cloud of bees, wasps and hornets.",
+                         special_ability_depiction="SUMMON SWARM: Unleashes a stinging cloud of insects.",
                         depiction="A subtype of Druid, commands the insects.")
         self.inventory.add_item(whip)
 
