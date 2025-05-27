@@ -1,5 +1,4 @@
 from characters import Barbarian, Wizard, Rogue, Paladin, Necromancer, Druid
-#from items import Weapon, Helmet, Armor
 from settings_images import *
 from enemies import *
 from locations import *
@@ -288,7 +287,8 @@ def draw_battle_ui(screen, selected_character, selected_enemy):
         screen.blit(paladin_img, (20, 150))
     elif selected_character == characters[4]:
         screen.blit(necromancer_img, (20, 150))
-
+    elif selected_character == characters[5]:
+        screen.blit(druid_img, (20, 150))
     """# Harci napló megjelenítése
     y_offset = 400
     for log in battle_log[-5:]:  # Csak az utolsó 5 eseményt mutatjuk
@@ -387,6 +387,11 @@ def draw_dodge_chance(surface, x, y):
     surface.blit(text, (x, y))
 
 
+def draw_nature_favor(surface, x, y):
+    text = button_font.render("Chance to Nature's Favor: 20%.", True, IVORY)
+    surface.blit(text, (x, y))
+
+
 def get_stat_name(character):
     if isinstance(character, Barbarian):
         return "Strength"
@@ -398,3 +403,5 @@ def get_stat_name(character):
         return "Holy power"
     elif isinstance(character, Necromancer):
         return "Knowledge"
+    elif isinstance(character, Druid):
+        return "Wisdom"

@@ -45,33 +45,6 @@ class Merchant(NPC):
         return False  # Selling not successful
 
 
-    """def show_items(self):
-        #List comprehension:
-        return [str(item) for item in self.inventory]"""
-
-    """def sell_item(self, character, item_name: str):
-        for item in self.inventory:
-            if item.name.lower() == item_name.lower():
-                if character.gold_amount >= item.cost:
-                    character.gold_amount -= item.cost
-                    character.inventory.append(item)
-                    self.inventory.remove(item)
-                    return f"{character.name} bought {item.name} for {item.cost} gold!"
-                else:
-                    return f"{character.name} does not have enough gold!"
-        return f"{self.name}: Sorry, I don't have that item!"""
-
-    """def buy_item(self, character, item_name):
-        for item in character.inventory:
-            if item.name.lower() == item_name.lower():
-                if character.gold_amount >= item.cost:
-                    character.gold_amount -= item.cost  # Character loses money
-                    character.inventory.remove(item)  # Removing from character's inventory
-                    self.inventory.append(item)  # NPC gets the item
-                return f"{self.name} bought {item.name} from {character.name} for {item.cost} gold!"
-        return f"{character.name} does not have {item_name} to sell!"""
-
-
 class Alchemist(Merchant):  #creates an instance of HealthPotion class by itself
     def __init__(self, name, dialog):
         super().__init__(name, dialog)
@@ -123,6 +96,13 @@ class Alchemist(Merchant):  #creates an instance of HealthPotion class by itself
                                                    5, 10))
             self.inventory.add_item(magic_orb)
 
+        elif selected_character.name == "Druid":
+            for _ in range(3):
+                self.inventory.add_item(ManaPotion("Mana Potion",
+                                                   resource_path("assets/images/m_potion.png"),
+                                                   5, 10))
+            self.inventory.add_item(nectar_necklace)
+
 
 class Blacksmith(Merchant):
     def __init__(self, name, dialog):
@@ -155,19 +135,11 @@ class Blacksmith(Merchant):
             self.inventory.add_item(wiz_cloak_1)
             self.inventory.add_item(wiz_cloak_2)
             self.inventory.add_item(wiz_hat)
+        elif selected_character.name == "Druid":
+            self.inventory.add_item(hive_staff)
+            self.inventory.add_item(moss_cloak)
+            self.inventory.add_item(rose_crown)
 
-        """self.inventory.add_item(
-            SharpeningStone("Sharpening Stone",
-                            "assets/images/sharpening_stone.png", 15, 10))
-        self.inventory.add_item(
-            SharpeningStone("Sharpening Stone",
-                            "assets/images/sharpening_stone.png", 15, 10))
-        self.inventory.add_item(
-            ArmorAmplifier("Armor Amplifier",
-                           "assets/images/armor_amplifier.png", 10, 10))
-        self.inventory.add_item(
-            ArmorAmplifier("Armor Amplifier",
-                           "assets/images/armor_amplifier.png", 10, 10)),"""
 
 class SaloonKeeper(Merchant):
     def __init__(self, name, dialog):
