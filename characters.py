@@ -1,20 +1,12 @@
 import random
-#import pygame
 from items import *
 from settings_images import die_channel, die_theme
-
-
-#pygame.init()
-#pygame.mixer.init()
 
 
 class Inventory:
     def __init__(self):
         self.items = []
         self.max_size = 8  #2
-
-    """def is_full(self):
-        return len(self.items) >= self.max_size"""
 
     def add_item(self, item):
         if len(self.items) <= self.max_size:
@@ -364,7 +356,7 @@ class Druid(Character):
                         special_ability="Summon Swarm",
                          special_ability_depiction="SUMMON SWARM: Unleashes a stinging cloud of bees, wasps and hornets.",
                         depiction="A subtype of Druid, commands the insects.")
-        #self.inventory.add_item(whip)
+        self.inventory.add_item(whip)
 
     def summon_swarm(self, enemy):
         if not self.alive:
@@ -380,10 +372,10 @@ class Druid(Character):
         else:
             print(f"{self.name} does not have enough mana for the spell!")
 
-    def nature_favor(self, attack):
-            # 20% chance to crit
-            if random.random() < 0.2:
-                self.attack = self.attack + (self.attack + 2)
-                return True
-            else:
-                return False
+    def nature_favor(self):
+        """Returns the modified attack value based on Nature's Favor chance."""
+        base_attack = self.attack
+        if random.random() < 0.2:
+            print(f"Nature's Favor! {self.name}'s attack is empowered!")
+            return base_attack + (base_attack / 2)
+        return base_attack

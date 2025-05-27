@@ -282,5 +282,15 @@ wiz_cloak_2 = Armor("Wizard Cloak", 20, "assets/images/equipments/wiz_cloak_2.jp
 magic_orb = Object("Magic Orb", 20, "assets/images/equipments/orb.jpg",
                   3,"Wizard")
 
-
+# Druid equipments
+whip = Weapon("Thorned Rose whip", 10, "assets/images/equipments/whip.jpg",
+               10, "Druid")
+hive_staff = Weapon("Staff of Swarm Queen", 20, "assets/images/equipments/hive_staff.jpg",
+               30, "Druid")
+rose_crown = Helmet("Thornbloom Crown", 10, "assets/images/equipments/rose_crown.jpg",
+                  15,"Druid")
+moss_cloak = Armor("Mossvine Mantle", 20, "assets/images/equipments/moss_cloak.jpg",
+                  30,"Druid")
+nectar_necklace = Object("Nectar Necklace", 20, "assets/images/equipments/nectar_necklace.jpg",
+                  3,"Druid")
 
