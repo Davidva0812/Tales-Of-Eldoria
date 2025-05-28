@@ -295,15 +295,15 @@ nectar_necklace = Object("Nectar Necklace", 20, "assets/images/equipments/nectar
                   3,"Druid")
 
 # Cryomancer equipments
-ice_wand = Weapon("Spellbook", 10, "assets/images/equipments/ice_wand.jpg",
+ice_wand = Weapon("Blizzard Wand", 10, "assets/images/equipments/ice_wand.jpg",
                10, "Cryomancer")
-specter = Weapon("Graduate's Reward", 20, "assets/images/equipments/ice_specter.jpg",
+specter = Weapon("Frost Queen's Specter", 20, "assets/images/equipments/ice_specter.jpg",
                30, "Cryomancer")
-ice_crown = Helmet("Wizard Hat", 10, "assets/images/equipments/wiz_hat.jpg",
+ice_crown = Helmet("Ice Crystal Crown", 10, "assets/images/equipments/wiz_hat.jpg",
                   15,"Cryomancer")
-ice_cloak = Armor("Apprentice Cloak", 20, "assets/images/equipments/ice_cloak.jpg",
+ice_cloak = Armor("Mantle of Endless Winter", 20, "assets/images/equipments/ice_cloak.jpg",
                   30,"Cryomancer")
-ice_armor = Armor("Wizard Cloak", 20, "assets/images/equipments/wiz_cloak_2.jpg",
+ice_armor = Armor("Frostspike Armor", 20, "assets/images/equipments/wiz_cloak_2.jpg",
                   30,"Cryomancer")
-snow_globe = Object("Magic Orb", 20, "assets/images/equipments/ice_globe.jpg",
+snow_globe = Object("Globe of Last Winter", 20, "assets/images/equipments/ice_globe.jpg",
                   3,"Cryomancer")
