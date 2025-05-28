@@ -103,6 +103,13 @@ class Alchemist(Merchant):  #creates an instance of HealthPotion class by itself
                                                    5, 10))
             self.inventory.add_item(nectar_necklace)
 
+        elif selected_character.name == "Cryomancer":
+            for _ in range(3):
+                self.inventory.add_item(ManaPotion("Mana Potion",
+                                                   resource_path("assets/images/m_potion.png"),
+                                                   5, 10))
+            self.inventory.add_item(snow_globe)
+
 
 class Blacksmith(Merchant):
     def __init__(self, name, dialog):
@@ -139,6 +146,11 @@ class Blacksmith(Merchant):
             self.inventory.add_item(hive_staff)
             self.inventory.add_item(moss_cloak)
             self.inventory.add_item(rose_crown)
+        elif selected_character.name == "Cryomancer":
+            self.inventory.add_item(specter)
+            self.inventory.add_item(ice_cloak)
+            self.inventory.add_item(ice_crown)
+            self.inventory.add_item(ice_armor)
 
 
 class SaloonKeeper(Merchant):

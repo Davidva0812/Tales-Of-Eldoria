@@ -453,6 +453,9 @@ while running:
                         elif isinstance(selected_character, Druid):
                             selected_character.summon_swarm(selected_enemy)
                             selected_enemy.enemy_attack(selected_character)
+                        elif isinstance(selected_character, Cryomancer):
+                            selected_character.ice_spikes(selected_enemy)
+                            selected_enemy.enemy_attack(selected_character)
                 if surrender_button.collidepoint(mouse_x, mouse_y):
                     if selected_character.health <= 0 or selected_enemy.health <= 0:
                         pass
@@ -503,10 +506,10 @@ while running:
         screen.blit(title_text,
                     (SCREEN_WIDTH // 2 - title_text.get_width() // 2, 20))
         for i, character in enumerate(characters):
-            draw_button(character.name, 300, 140 + i * 60, 200, 50)
+            draw_button(character.name, 300, 150 + i * 60, 200, 50)
         if hovered_character:
             description_text = depiction_font.render(f"{hovered_character.depiction}",True, BLACK)
-            screen.blit(description_text, (SCREEN_WIDTH // 2 - description_text.get_width() // 2,500))
+            screen.blit(description_text, (SCREEN_WIDTH // 2 - description_text.get_width() // 2,480))
         back_button = draw_button("Back to Menu", 600, 550, 200, 50)
         screen.blit(cursor_surf, cursor_rect)
 
@@ -669,6 +672,17 @@ while running:
                 hive_text = ability_font.render(
                     f"{selected_character.special_ability}", True, IVORY)
                 screen.blit(hive_text, (SCREEN_WIDTH // 2 + 245, 316))
+                cells = draw_grid(border_color, 0, 200, selected_character.inventory,
+                                  selected_character.equipped_items, selected_character)
+            elif selected_character == characters[6]:  # Cryomancer
+                screen.fill(ICE_BLUE)
+                border_color = BLUE
+                screen.blit(cryo_img, cryo_rect)
+                pygame.draw.rect(screen, border_color, hive_rect)
+                screen.blit(ice_spike_img, (SCREEN_WIDTH // 2 + 180, 305))
+                ice_spike_text = ability_font.render(
+                    f"{selected_character.special_ability}", True, IVORY)
+                screen.blit(ice_spike_text, (SCREEN_WIDTH // 2 + 245, 316))
                 cells = draw_grid(border_color, 0, 200, selected_character.inventory,
                                   selected_character.equipped_items, selected_character)
             else:

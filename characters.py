@@ -379,3 +379,26 @@ class Druid(Character):
             print(f"Nature's Favor! {self.name}'s attack is empowered!")
             return base_attack + (base_attack / 2)
         return base_attack
+
+
+class Cryomancer(Character):
+    def __init__(self):
+        super().__init__("Cryomancer", health=4, attack=16, armor=0, mana=30,
+                        special_ability="Ice Spikes",
+                         special_ability_depiction="ICE SPIKES: Rapid volley of ice spikes toward enemies.",
+                        depiction="A Mage, specialized to Ice magic, masters of frost.")
+        self.inventory.add_item(ice_wand)
+
+    def ice_spikes(self, enemy):
+        if not self.alive:
+            print(f"{self.name} is dead and cannot use Ice Spikes!")
+            return
+        if self.mana >= 10:
+            damage = 8 + self.level * 2
+            self.mana -= 10
+            print(f"{self.name} casts Ice Spikes at {enemy.name}!")
+            enemy.enemy_take_damage(damage)
+            if enemy.health <= 0:
+                self.enemy_is_dead(enemy)
+        else:
+            print(f"{self.name} does not have enough mana for the spell!")

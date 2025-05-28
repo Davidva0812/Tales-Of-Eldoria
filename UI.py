@@ -1,4 +1,5 @@
-from characters import Barbarian, Wizard, Rogue, Paladin, Necromancer, Druid
+from characters import (Barbarian, Wizard, Rogue, Paladin, Necromancer,
+                        Druid, Cryomancer)
 from settings_images import *
 from enemies import *
 from locations import *
@@ -19,7 +20,8 @@ characters = [
     Rogue(),
     Paladin(),
     Necromancer(),
-    Druid()
+    Druid(),
+    Cryomancer()
 ]
 
 # Buttons, all was (0, 0, 0, 0)
@@ -405,3 +407,5 @@ def get_stat_name(character):
         return "Knowledge"
     elif isinstance(character, Druid):
         return "Wisdom"
+    elif isinstance(character, Cryomancer):
+        return "Willpower"
