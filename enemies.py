@@ -41,9 +41,30 @@ class Enemy:
         self.enemy_alive = False
         self.health = 0
 
-    def handle_equipment_loot(self, selected_character):
+    """def handle_equipment_loot(self, selected_character):
         if selected_character.name == "Paladin":
             selected_character.inventory.add_item(sword_2)
         else:
-            pass
+            pass"""
 
+
+class TheCount(Enemy):
+    def enemy_attack(self, player):
+        if not self.enemy_alive:
+            print(f"{self.name} is already dead and cannot attack!")
+            player.gain_xp(self.xp_reward)
+            print(f"Current XP: {player.xp}.")
+            return
+        print(f"{self.name} attacks {player.name}!")
+        player.take_damage(self.attack)
+
+        # Life drain: Count heals for 30% of the damage dealt
+        life_steal = int(self.attack * 0.3)
+        self.health += life_steal
+
+        # Make sure health does not exceed max
+        if self.health > self.max_health:
+            self.health = self.max_health
+
+        print(
+            f"{self.name} healed for {life_steal} HP. Current HP: {self.health}/{self.max_health}")

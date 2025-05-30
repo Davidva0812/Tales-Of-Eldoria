@@ -299,11 +299,23 @@ ice_wand = Weapon("Blizzard Wand", 10, "assets/images/equipments/ice_wand.jpg",
                10, "Cryomancer")
 specter = Weapon("Frost Queen's Specter", 20, "assets/images/equipments/ice_specter.jpg",
                30, "Cryomancer")
-ice_crown = Helmet("Ice Crystal Crown", 10, "assets/images/equipments/wiz_hat.jpg",
+ice_crown = Helmet("Ice Crystal Crown", 10, "assets/images/equipments/ice_crown.jpg",
                   15,"Cryomancer")
 ice_cloak = Armor("Mantle of Endless Winter", 20, "assets/images/equipments/ice_cloak.jpg",
                   30,"Cryomancer")
-ice_armor = Armor("Frostspike Armor", 20, "assets/images/equipments/wiz_cloak_2.jpg",
+ice_armor = Armor("Frostspike Armor", 20, "assets/images/equipments/frost_armor.jpg",
                   30,"Cryomancer")
 snow_globe = Object("Globe of Last Winter", 20, "assets/images/equipments/ice_globe.jpg",
                   3,"Cryomancer")
+
+# Bard equipments
+flute = Weapon("Flute", 10, "assets/images/equipments/flute.jpg",
+               10, "Bard")
+lute = Weapon("Lute of Endless Songs", 20, "assets/images/equipments/lyre.jpg",
+               30, "Bard")
+bard_hat= Helmet("Storyteller's Hat", 10, "assets/images/equipments/bard_hat.jpg",
+                  15,"Bard")
+bard_cloak = Armor("Elegant Cloak", 20, "assets/images/equipments/bard_cloak.jpg",
+                  30,"Bard")
+lucky_coin = Object("Lucky Coin", 20, "assets/images/equipments/luck_coin.jpg",
+                  3,"Bard")

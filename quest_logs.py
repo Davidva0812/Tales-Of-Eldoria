@@ -1,0 +1,8 @@
+paladin_log = "lllllllllllllllllllllllllllll"
+barbarian_log = "ddddddddd"
+wizard_log = "dddd"
+rogue_log = "d"
+necromancer_log = "ff"
+cryomancer_log = "ddd"
+swarmcaller_log = "ddd"
+bard_log = "gg"

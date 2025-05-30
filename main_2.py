@@ -24,6 +24,7 @@ def resource_path(relative_path):
 
 
 sleep_button_rect = pygame.Rect(300, 200, 100, 30)
+quest_button_rect = pygame.Rect(300, 200, 100, 30)
 (start_button, exit_button, lab_button, blacksmith_button, back_button,
 tavern_button, profile_button, explore_button, battle_button_enchanted, battle_button_dark_forest,
 battle_button_cemetery, battle_button_ruin, battle_button_peak,battle_button_sunken,
@@ -33,6 +34,7 @@ ok_button, surrender_button, bag_button, to_explore_button) = [None] * 28
 cursor_surf = pygame.image.load(resource_path("assets/images/other/cursor_shiny.png")).convert_alpha()
 cursor_rect = pygame.Rect(0, 0, 50, 50)
 show_sleep_popup = False
+show_quest_popup = False
 show_alchemist_inventory = show_blacksmith_inventory = show_character_inventory = False
 alchemist_inventory_loaded = False
 blacksmith_inventory_loaded = False
@@ -120,13 +122,13 @@ while running:
             if event.type == pygame.MOUSEMOTION:
                 hovered_character = None
                 for i, character in enumerate(characters):
-                    char_button = pygame.Rect(300, 150 + i * 60, 200, 50)
+                    char_button = pygame.Rect(300, 125 + i * 60, 200, 50)
                     if char_button.collidepoint(event.pos):
                         hovered_character = character
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 mouse_x, mouse_y = event.pos
                 for i, character in enumerate(characters):
-                    char_button = pygame.Rect(300, 150 + i * 60, 200, 50)
+                    char_button = pygame.Rect(300, 125 + i * 60, 200, 50)
                     if char_button.collidepoint(event.pos):
                         selected_character = character
                         game_state = NAME_INPUT
@@ -245,6 +247,8 @@ while running:
                         show_sleep_popup = False
                     if no_button_rect.collidepoint(mouse_x, mouse_y):
                         show_sleep_popup = False
+                if quest_button_rect.collidepoint(mouse_x, mouse_y):
+                    show_quest_popup = not show_quest_popup
 
         elif game_state == PROFILE:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -456,13 +460,19 @@ while running:
                         elif isinstance(selected_character, Cryomancer):
                             selected_character.ice_spikes(selected_enemy)
                             selected_enemy.enemy_attack(selected_character)
+                        elif isinstance(selected_character, Bard):
+                            selected_character.metal_cards(selected_enemy)
+                            selected_enemy.enemy_attack(selected_character)
                 if surrender_button.collidepoint(mouse_x, mouse_y):
                     if selected_character.health <= 0 or selected_enemy.health <= 0:
                         pass
                     else:
                         game_state = TOWN
                         selected_enemy.health = selected_enemy.max_health
-                        selected_character.health = min(selected_character.health,selected_character.max_health // 2)
+                        if isinstance(selected_character, Bard):
+                            selected_character.health = min(selected_character.health, int(selected_character.max_health * 0.7))
+                        else:
+                            selected_character.health = min(selected_character.health,selected_character.max_health // 2)
                         battle_channel.stop()
                         battle_music_playing = False
                         pygame.mixer.music.play(-1)
@@ -506,10 +516,10 @@ while running:
         screen.blit(title_text,
                     (SCREEN_WIDTH // 2 - title_text.get_width() // 2, 20))
         for i, character in enumerate(characters):
-            draw_button(character.name, 300, 150 + i * 60, 200, 50)
+            draw_button(character.name, 300, 125 + i * 60, 200, 50)
         if hovered_character:
             description_text = depiction_font.render(f"{hovered_character.depiction}",True, BLACK)
-            screen.blit(description_text, (SCREEN_WIDTH // 2 - description_text.get_width() // 2,480))
+            screen.blit(description_text, (SCREEN_WIDTH // 2 - description_text.get_width() // 2,515))
         back_button = draw_button("Back to Menu", 600, 550, 200, 50)
         screen.blit(cursor_surf, cursor_rect)
 
@@ -584,6 +594,7 @@ while running:
             screen.blit(saloon_keeper_text, (SCREEN_WIDTH // 2 - saloon_keeper_text.get_width() // 2, 1))
         back_button = draw_button("Back to Town", 600, 550, 200, 50)
         sleep_button_rect= draw_button("Rent a room", 600, 270, 200, 50)
+        quest_button_rect = draw_button("Hide Quest" if show_quest_popup else "Show Quest", 600, 340, 200, 50)
         if show_sleep_popup:
            draw_tavern_popup()
         if sleep_message:
@@ -592,7 +603,10 @@ while running:
             if pygame.time.get_ticks() - message_time > MESSAGE_LIFETIME:
                 sleep_message = ""
                 message_time = None
+        if show_quest_popup:
+            draw_quest_popup(selected_character)
         screen.blit(cursor_surf, cursor_rect)
+
 
     elif game_state == PROFILE:
         starting_y = 450
@@ -683,6 +697,17 @@ while running:
                 ice_spike_text = ability_font.render(
                     f"{selected_character.special_ability}", True, IVORY)
                 screen.blit(ice_spike_text, (SCREEN_WIDTH // 2 + 245, 316))
+                cells = draw_grid(border_color, 0, 200, selected_character.inventory,
+                                  selected_character.equipped_items, selected_character)
+            elif selected_character == characters[7]:  # Bard
+                screen.fill(ORANGE)
+                border_color = DARK_BROWN
+                screen.blit(bard_img, bard_rect)
+                pygame.draw.rect(screen, border_color, cards_rect)
+                screen.blit(cards_img, (SCREEN_WIDTH // 2 + 180, 305))
+                cards_text = ability_font.render(
+                    f"{selected_character.special_ability}", True, IVORY)
+                screen.blit(cards_text, (SCREEN_WIDTH // 2 + 245, 316))
                 cells = draw_grid(border_color, 0, 200, selected_character.inventory,
                                   selected_character.equipped_items, selected_character)
             else:
@@ -809,6 +834,9 @@ while running:
             draw_dodge_chance(screen, 20, 520)
         if selected_character == characters[5]:
             draw_nature_favor(screen, 20, 520)
+        if selected_character == characters[7]:
+            draw_soundwave(screen, 20, 520)
+            draw_tricky_finale(screen, 20, 560)
         if selected_character == characters[0] or selected_character == characters[2]:
             draw_stamina_bar(screen, 60, 470, selected_character.stamina, selected_character.max_stamina)
         else:

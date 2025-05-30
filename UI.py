@@ -1,8 +1,9 @@
 from characters import (Barbarian, Wizard, Rogue, Paladin, Necromancer,
-                        Druid, Cryomancer)
+                        Druid, Cryomancer, Bard)
 from settings_images import *
 from enemies import *
 from locations import *
+from quest_logs import *
 
 
 exit_confirmed = False
@@ -21,7 +22,8 @@ characters = [
     Paladin(),
     Necromancer(),
     Druid(),
-    Cryomancer()
+    Cryomancer(),
+    Bard()
 ]
 
 # Buttons, all was (0, 0, 0, 0)
@@ -47,7 +49,6 @@ ok_button_rect = pygame.Rect(290, 450, 200, 50)
 #popup buttons
 popup_rect = pygame.Rect(100, 250, 450, 150)
 popup_rect_battle = pygame.Rect(200, 250, 400, 250)
-
 
 def draw_button(text, x, y, width, height):
     """Draws buttons and checks clicking"""
@@ -291,6 +292,10 @@ def draw_battle_ui(screen, selected_character, selected_enemy):
         screen.blit(necromancer_img, (20, 150))
     elif selected_character == characters[5]:
         screen.blit(druid_img, (20, 150))
+    elif selected_character == characters[6]:
+        screen.blit(cryo_img, (20, 150))
+    elif selected_character == characters[7]:
+        screen.blit(bard_img, (20, 150))
     """# Harci napló megjelenítése
     y_offset = 400
     for log in battle_log[-5:]:  # Csak az utolsó 5 eseményt mutatjuk
@@ -385,12 +390,20 @@ def draw_hero_attack_and_armor(surface, attack, armor):
 
 
 def draw_dodge_chance(surface, x, y):
-    text = button_font.render("Chance to dodge: 30%.", True, IVORY)
+    text = stats_font.render("Chance to dodge: 30%.", True, IVORY)
     surface.blit(text, (x, y))
 
 
 def draw_nature_favor(surface, x, y):
-    text = button_font.render("Chance to Nature's Favor: 20%.", True, IVORY)
+    text = stats_font.render("Chance to critical hit with Nature's Favor: 20%.", True, IVORY)
+    surface.blit(text, (x, y))
+
+def draw_soundwave(surface, x, y):
+    text = stats_font.render("Chance to avoid attack with Soundwave: 15%.", True, IVORY)
+    surface.blit(text, (x, y))
+
+def draw_tricky_finale(surface, x, y):
+    text = button_font.render("Tricky Finale: If surrenders, more HP will remain.", True, IVORY)
     surface.blit(text, (x, y))
 
 
@@ -409,3 +422,28 @@ def get_stat_name(character):
         return "Wisdom"
     elif isinstance(character, Cryomancer):
         return "Willpower"
+    elif isinstance(character, Bard):
+        return "Charisma"
+
+
+def draw_quest_popup(character):
+    if isinstance(character, Barbarian):
+        text_surface = button_font.render(barbarian_log, True, BLACK)
+    elif isinstance(character, Wizard):
+        text_surface = button_font.render(wizard_log, True, BLACK)
+    elif isinstance(character, Rogue):
+        text_surface = button_font.render(rogue_log, True, BLACK)
+    elif isinstance(character, Paladin):
+        text_surface = button_font.render(paladin_log, True, BLACK)
+    elif isinstance(character, Necromancer):
+        text_surface = button_font.render(necromancer_log, True, BLACK)
+    elif isinstance(character, Druid):
+        text_surface = button_font.render(swarmcaller_log, True, BLACK)
+    elif isinstance(character, Cryomancer):
+        text_surface = button_font.render(cryomancer_log, True, BLACK)
+    elif isinstance(character, Bard):
+        text_surface = button_font.render(bard_log, True, BLACK)
+    else:
+        text_surface = button_font.render("semmi", True, BLACK)
+    pygame.draw.rect(screen, BROWN, popup_rect)  # Popup background
+    screen.blit(text_surface, (popup_rect.x + 50, popup_rect.y + 30))

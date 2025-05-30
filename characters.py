@@ -383,10 +383,10 @@ class Druid(Character):
 
 class Cryomancer(Character):
     def __init__(self):
-        super().__init__("Cryomancer", health=4, attack=16, armor=0, mana=30,
+        super().__init__("Cryomancer", health=10, attack=16, armor=0, mana=30,
                         special_ability="Ice Spikes",
                          special_ability_depiction="ICE SPIKES: Rapid volley of ice spikes toward enemies.",
-                        depiction="A Mage, specialized to Ice magic, masters of frost.")
+                        depiction="A Mage, specialized to Ice magic, master of frost.")
         self.inventory.add_item(ice_wand)
 
     def ice_spikes(self, enemy):
@@ -397,6 +397,45 @@ class Cryomancer(Character):
             damage = 8 + self.level * 2
             self.mana -= 10
             print(f"{self.name} casts Ice Spikes at {enemy.name}!")
+            enemy.enemy_take_damage(damage)
+            if enemy.health <= 0:
+                self.enemy_is_dead(enemy)
+        else:
+            print(f"{self.name} does not have enough mana for the spell!")
+
+
+class Bard(Character):
+    def __init__(self):
+        super().__init__("Bard", health=10, attack=16, armor=0, mana=30,
+                        special_ability="Metal Cards",
+                         special_ability_depiction="METAL CARDS: Sharp volley of metal cards.",
+                        depiction="A performer, master of voice, magical melodies, illusion and perception.")
+        self.inventory.add_item(flute)
+
+    def take_damage(self, damage):
+        if not self.alive:
+            print(f"{self.name} is already dead and cannot take damage!")
+            return
+        # 10% chance to avoid the attack
+        if random.random() < 0.15:
+            print(f"{self.name} dodges the attack!")
+            return True
+        else:
+            reduced_damage = max(0, damage - self.armor)
+            self.health -= reduced_damage
+            print(f"{self.name} took {reduced_damage} damage. Remaining HP: {self.health}")
+
+        if self.health <= 0:
+            self.die()
+
+    def metal_cards(self, enemy):
+        if not self.alive:
+            print(f"{self.name} is dead and cannot use Metal Cards!")
+            return
+        if self.mana >= 10:
+            damage = 8 + self.level * 2
+            self.mana -= 10
+            print(f"{self.name} casts Metal cards at {enemy.name}!")
             enemy.enemy_take_damage(damage)
             if enemy.health <= 0:
                 self.enemy_is_dead(enemy)

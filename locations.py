@@ -1,5 +1,5 @@
 import random
-from enemies import Enemy
+from enemies import Enemy, TheCount
 from items import *
 
 
@@ -27,7 +27,7 @@ BATTLE = "battle"
 
 location_enemies = {
     CEMETERY: [
-        Enemy("Skeleton", 10, 1, "skeleton.jpg",
+        Enemy("Skeleton", 100, 5, "skeleton.jpg",
               random.randint(1, 3), 60, [health_potion]),
         Enemy("Gravedigger", 10, 2, "gravedigger.jpg",
               random.randint(4, 7), 300, [mana_potion]),
