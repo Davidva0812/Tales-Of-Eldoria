@@ -55,7 +55,7 @@ die_theme = pygame.mixer.Sound(resource_path("assets/sounds/ghost.wav"))
 die_theme.set_volume(volume_level)
 # Mouse clicking sound
 click_sound = pygame.mixer.Sound(resource_path("assets/sounds/mouseclick.wav"))
-click_sound.set_volume(volume_level)
+click_sound.set_volume(0.3)
 
 
 music_tracks = {
