@@ -48,6 +48,7 @@ bless_button_rect = pygame.Rect(600, 400, 200, 50)
 ok_button_rect = pygame.Rect(290, 450, 200, 50)
 #popup buttons
 popup_rect = pygame.Rect(100, 250, 450, 150)
+popup_rect_quest = pygame.Rect(20, 100, 800, 50)
 popup_rect_battle = pygame.Rect(200, 250, 400, 250)
 
 def draw_button(text, x, y, width, height):
@@ -64,6 +65,25 @@ def draw_button(text, x, y, width, height):
         screen.blit(overlay, (x, y))
     # Text in the middle
     text_surface = button_font.render(text, True, IVORY)
+    text_rect = text_surface.get_rect(center=(x + width // 2, y + height // 2))
+    screen.blit(text_surface, text_rect)
+    return button_rect
+
+
+def draw_tavern_button(text, x, y, width, height, color):
+    """Draws buttons and checks clicking"""
+    mouse_x, mouse_y = pygame.mouse.get_pos()
+    button_rect = pygame.Rect(x, y, width, height)
+    # Draws wooden pattern
+    screen.blit(wood_texture, (x, y))
+    # If the mouse is over it, a faint overlay effect (e.g., darker overlay)
+    # pygame.SRCALPHA: supports the hover effect
+    if button_rect.collidepoint(mouse_x, mouse_y):
+        overlay = pygame.Surface((width, height), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 50))  #darker overlay
+        screen.blit(overlay, (x, y))
+    # Text in the middle
+    text_surface = button_font.render(text, True, color)
     text_rect = text_surface.get_rect(center=(x + width // 2, y + height // 2))
     screen.blit(text_surface, text_rect)
     return button_rect
@@ -263,6 +283,8 @@ def draw_enemies(game_state):
             name_text = stats_font.render(enemy.name, True, BLACK)
         elif game_state in [HAUNTED_RUIN, CEMETERY, SUNKEN_TEMPLE]:
             name_text = stats_font.render(enemy.name, True, ORANGE)
+        elif game_state == CRIMSON_CASTLE:
+            name_text = stats_font.render(enemy.name, True, RED)
         else:
             name_text = stats_font.render(enemy.name, True, WHITE)
         screen.blit(name_text, (x + 90 - name_text.get_width() // 2, y - 35))
@@ -277,8 +299,11 @@ def draw_enemies(game_state):
     return enemy_rects  # Return rects to event handling
 
 
-def draw_battle_ui(screen, selected_character, selected_enemy):
-    screen.blit(battle_img, (0, 0))
+def draw_battle_ui(screen, selected_character, enemy):
+    if enemy.name in ["Sangromancer", "Vampire Knight", "Linda Nocturne", "Victor Nocturne"]:
+        screen.blit(battle_img_crimson, (0, 0))
+    else:
+        screen.blit(battle_img, (0, 0))
     # Player and enemy picture
     if selected_character == characters[0]:
         screen.blit(barbarian_img, (20, 150))
@@ -398,9 +423,11 @@ def draw_nature_favor(surface, x, y):
     text = stats_font.render("Chance to critical hit with Nature's Favor: 20%.", True, IVORY)
     surface.blit(text, (x, y))
 
+
 def draw_soundwave(surface, x, y):
     text = stats_font.render("Chance to avoid attack with Soundwave: 15%.", True, IVORY)
     surface.blit(text, (x, y))
+
 
 def draw_tricky_finale(surface, x, y):
     text = button_font.render("Tricky Finale: If surrenders, more HP will remain.", True, IVORY)
@@ -428,22 +455,22 @@ def get_stat_name(character):
 
 def draw_quest_popup(character):
     if isinstance(character, Barbarian):
-        text_surface = button_font.render(barbarian_log, True, BLACK)
+        text_surface = item_stat_font.render(barbarian_log, True, BLACK)
     elif isinstance(character, Wizard):
-        text_surface = button_font.render(wizard_log, True, BLACK)
+        text_surface = item_stat_font.render(wizard_log, True, BLACK)
     elif isinstance(character, Rogue):
-        text_surface = button_font.render(rogue_log, True, BLACK)
+        text_surface = item_stat_font.render(rogue_log, True, BLACK)
     elif isinstance(character, Paladin):
-        text_surface = button_font.render(paladin_log, True, BLACK)
+        text_surface = item_stat_font.render(paladin_log, True, BLACK)
     elif isinstance(character, Necromancer):
-        text_surface = button_font.render(necromancer_log, True, BLACK)
+        text_surface = item_stat_font.render(necromancer_log, True, BLACK)
     elif isinstance(character, Druid):
-        text_surface = button_font.render(swarmcaller_log, True, BLACK)
+        text_surface = item_stat_font.render(swarmcaller_log, True, BLACK)
     elif isinstance(character, Cryomancer):
-        text_surface = button_font.render(cryomancer_log, True, BLACK)
+        text_surface = item_stat_font.render(cryomancer_log, True, BLACK)
     elif isinstance(character, Bard):
-        text_surface = button_font.render(bard_log, True, BLACK)
+        text_surface = item_stat_font.render(bard_log, True, BLACK)
     else:
-        text_surface = button_font.render("semmi", True, BLACK)
-    pygame.draw.rect(screen, BROWN, popup_rect)  # Popup background
-    screen.blit(text_surface, (popup_rect.x + 50, popup_rect.y + 30))
+        text_surface = item_stat_font.render("None", True, BLACK)
+    pygame.draw.rect(screen, BROWN, popup_rect_quest)  # Popup background
+    screen.blit(text_surface, (popup_rect_quest.x, popup_rect_quest.y + 10))

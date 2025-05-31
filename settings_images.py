@@ -39,6 +39,8 @@ frostfang_peak_theme = pygame.mixer.Sound(resource_path("assets/sounds/cold_hand
 frostfang_peak_theme.set_volume(volume_level)
 sunken_temple_theme = pygame.mixer.Sound(resource_path("assets/sounds/Mysterious.mp3"))
 sunken_temple_theme.set_volume(volume_level)
+crimson_castle_theme = pygame.mixer.Sound(resource_path("assets/sounds/vampires_piano.mp3"))
+crimson_castle_theme.set_volume(volume_level)
 # Battle music
 battle_channel = pygame.mixer.Channel(3)
 battle_theme = pygame.mixer.Sound(resource_path("assets/sounds/battle_theme.mp3"))
@@ -62,7 +64,8 @@ music_tracks = {
     HAUNTED_RUIN: haunted_ruin_theme,
     ENCHANTED_FOREST: enchanted_forest_theme,
     FROSTFANG_PEAK: frostfang_peak_theme,
-    SUNKEN_TEMPLE: sunken_temple_theme
+    SUNKEN_TEMPLE: sunken_temple_theme,
+    CRIMSON_CASTLE: crimson_castle_theme
 }
 
 
@@ -148,28 +151,28 @@ level_icon = pygame.transform.scale(level_icon, (55, 55))
 level_icon_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 245, 55, 55)
 heal_img = pygame.image.load(resource_path("assets/images/other/heal.png")).convert_alpha()
 heal_img = pygame.transform.scale(heal_img, (55, 55))
-heal_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 305, 55, 55)
+heal_rect = pygame.Rect(SCREEN_WIDTH // 2 - 390, 450, 55, 55)
 berserk_img = pygame.image.load(resource_path("assets/images/other/berserk.png")).convert_alpha()
 berserk_img = pygame.transform.scale(berserk_img, (55, 55))
-berserk_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 305, 55, 55)
+berserk_rect = pygame.Rect(SCREEN_WIDTH // 2 - 390, 450, 55, 55)
 fireball_img = pygame.image.load(resource_path("assets/images/other/fireball.jpg")).convert_alpha()
 fireball_img = pygame.transform.scale(fireball_img, (55, 55))
-fireball_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 305, 55, 55)
+fireball_rect = pygame.Rect(SCREEN_WIDTH // 2 - 390, 450, 55, 55)
 reanimate_img = pygame.image.load(resource_path("assets/images/other/reanimate.png")).convert_alpha()
 reanimate_img = pygame.transform.scale(reanimate_img, (55, 55))
-reanimate_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 305, 55, 55)
+reanimate_rect = pygame.Rect(SCREEN_WIDTH // 2 - 390, 450, 55, 55)
 stab_img = pygame.image.load(resource_path("assets/images/other/stab.png")).convert_alpha()
 stab_img = pygame.transform.scale(stab_img, (55, 55))
-stab_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 305, 55, 55)
+stab_rect = pygame.Rect(SCREEN_WIDTH // 2 - 390, 450, 55, 55)
 hive_img = pygame.image.load(resource_path("assets/images/other/hive.jpg")).convert_alpha()
 hive_img = pygame.transform.scale(hive_img, (55, 55))
-hive_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 305, 55, 55)
+hive_rect = pygame.Rect(SCREEN_WIDTH // 2 - 390, 450, 55, 55)
 ice_spike_img = pygame.image.load(resource_path("assets/images/other/ice_shards.png")).convert_alpha()
 ice_spike_img = pygame.transform.scale(ice_spike_img, (55, 55))
-ice_spike_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 305, 55, 55)
+ice_spike_rect = pygame.Rect(SCREEN_WIDTH // 2 - 390, 450, 55, 55)
 cards_img = pygame.image.load(resource_path("assets/images/other/cards.jpg")).convert_alpha()
 cards_img = pygame.transform.scale(cards_img, (55, 55))
-cards_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 305, 55, 55)
+cards_rect = pygame.Rect(SCREEN_WIDTH // 2 - 390, 450, 55, 55)
 xp_img = pygame.image.load(resource_path("assets/images/other/XP1.png")).convert_alpha()
 xp_img = pygame.transform.scale(xp_img, (55, 55))
 xp_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 365, 55, 55)
@@ -181,6 +184,9 @@ cross_icon = pygame.image.load(resource_path("assets/images/other/heal.png")).co
 cross_icon = pygame.transform.scale(cross_icon, (35, 35))
 bag_icon = pygame.image.load(resource_path("assets/images/other/bag.png")).convert_alpha()
 bag_icon = pygame.transform.scale(bag_icon, (50, 50))
+bloodstone_img = pygame.image.load(resource_path("assets/images/other/bloodstone.jpg")).convert_alpha()
+bloodstone_img = pygame.transform.scale(bloodstone_img, (55, 55))
+bloodstone_rect = pygame.Rect(SCREEN_WIDTH // 2 + 180, 305, 55, 55)
 
 battle_icon_rect = pygame.Rect(SCREEN_WIDTH // 2 + 135, 2, 50, 50)
 #health_potion = pygame.image.load(resource_path("assets/images/h_potion.png")).convert_alpha()
@@ -201,7 +207,7 @@ forge = pygame.image.load(resource_path("assets/images/bg/forge.jpg")).convert()
 forge = pygame.transform.smoothscale(forge, (SCREEN_WIDTH, SCREEN_HEIGHT))
 tavern = pygame.image.load(resource_path("assets/images/bg/tavern.jpg")).convert()
 tavern = pygame.transform.smoothscale(tavern, (SCREEN_WIDTH, SCREEN_HEIGHT))
-map_img = pygame.image.load(resource_path("assets/images/bg/Tales of Eldoria.png")).convert()
+map_img = pygame.image.load(resource_path("assets/images/bg/Tales of E.jpg")).convert()
 map_img = pygame.transform.smoothscale(map_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
 enchanted_img = pygame.image.load(resource_path("assets/images/bg/enchanted_forest.jpg")).convert()
 enchanted_img = pygame.transform.smoothscale(enchanted_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -215,11 +221,14 @@ frost_peak_img = pygame.image.load(resource_path("assets/images/bg/frost_peaks.j
 frost_peak_img = pygame.transform.smoothscale(frost_peak_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
 sunken_temple_img = pygame.image.load(resource_path("assets/images/bg/sunken_temple.jpg")).convert()
 sunken_temple_img = pygame.transform.smoothscale(sunken_temple_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
+crimson_castle_img = pygame.image.load(resource_path("assets/images/bg/crimson_castle.jpg")).convert()
+crimson_castle_img = pygame.transform.smoothscale(crimson_castle_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
 chapel_img =  pygame.image.load(resource_path("assets/images/bg/chapel.jpg")).convert()
 chapel_img = pygame.transform.smoothscale(chapel_img, (800, 600))
 battle_img = pygame.image.load(resource_path("assets/images/bg/battle.jpg"))
 battle_img = pygame.transform.smoothscale(battle_img, (800, 600)).convert()
-
+battle_img_crimson = pygame.image.load(resource_path("assets/images/bg/crimson_castle_battle.jpg"))
+battle_img_crimson = pygame.transform.smoothscale(battle_img_crimson, (800, 600)).convert()
 
 def increase_volume():
     global volume_level

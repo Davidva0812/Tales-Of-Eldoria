@@ -6,7 +6,7 @@ screen = pygame.display.set_mode((800, 600))
 
 class Enemy:
     def __init__(self, name, health, attack, img, gold_drop_range, xp_reward,
-                 loot_table=None):
+                 loot_table=None, bloodstone = 0):
         self.name = name
         self.health = health
         self.max_health = self.health
@@ -16,6 +16,7 @@ class Enemy:
         self.img_for_battle = pygame.transform.smoothscale(self.img, (250, 260))
         self.gold_drop_range = gold_drop_range
         self.loot_table = loot_table if loot_table else []
+        self.bloodstone = bloodstone
         self.xp_reward = xp_reward
         self.enemy_alive = True
 

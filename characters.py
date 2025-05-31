@@ -51,6 +51,8 @@ class Character:
         self.alive = True
         self.inventory = Inventory()
         self.gold_amount = 20
+        self.bloodstone_amount = 0
+        self.max_bloodstone_amount = 7
         self.xp = 0
         self.level = 1
         self.xp_to_next_level = 50
@@ -81,6 +83,9 @@ class Character:
         global is_victory
         is_victory = True
         self.gold_amount += enemy.gold_drop_range
+        if self.bloodstone_amount < self.max_bloodstone_amount:
+            self.bloodstone_amount =min(self.bloodstone_amount + enemy.bloodstone,
+                                        self.max_bloodstone_amount)
         if not enemy.loot_table:
             print("No equipment loot!")
         elif len(enemy.loot_table) == 1:  # if 1 item in the list
@@ -222,7 +227,7 @@ class Barbarian(Character):
     def __init__(self):
         super().__init__("Barbarian", health=10, attack=10, armor=5, mana=0,
                          stamina=20, special_ability="Berserk",
-                         special_ability_depiction="BERSERK: Frenzy: increases attack, but lowers defense.",
+                         special_ability_depiction="Frenzy: increases attack, but lowers defense.",
                          depiction="Fueled by fury, unstoppable in the heart of battle.")
         self.inventory.add_item(axe)
         self.inventory.add_item(fur_king)
@@ -244,7 +249,7 @@ class Wizard(Character):
     def __init__(self):
         super().__init__("Wizard", health=10, attack=15, armor=5, mana=25,
                          special_ability="Fireball",
-                         special_ability_depiction="FIREBALL: Casts a blazing fireball that burns enemies.",
+                         special_ability_depiction="Casts a blazing fireball that burns enemies.",
                          depiction="A master of arcane secrets, bending reality with powerful spells.")
         self.inventory.add_item(spellbook)
 
@@ -267,7 +272,7 @@ class Rogue(Character):
     def __init__(self):
         super().__init__("Rogue", health=8, attack=12, armor=8, mana=0,
                          stamina=22,special_ability="Stab",
-                         special_ability_depiction="STAB: Strikes swiftly with a chance to deal critical hit.",
+                         special_ability_depiction="Strikes swiftly to deal critical hit.",
                          depiction=" A shadow in the night, striking swiftly and unseen.")
         self.inventory.add_item(dagger)
 
@@ -306,7 +311,7 @@ class Paladin(Character):
     def __init__(self):
         super().__init__("Paladin", health=12, attack=8, armor=2, mana=18,
                          special_ability="Heal",
-                         special_ability_depiction="HEAL: Restores a portion of health using divine energy.",
+                         special_ability_depiction="Restores a portion of health using divine energy.",
                          depiction="A holy warrior, wielding divine power and protect the weak.")
         self.inventory.add_item(sword)
 
@@ -330,7 +335,7 @@ class Necromancer(Character):
     def __init__(self):
         super().__init__("Necromancer", health=4, attack=16, armor=0, mana=30,
                         special_ability="Reanimate",
-                         special_ability_depiction="REANIMATE: Raises a skeleton to fight alongside you.",
+                         special_ability_depiction="Raises a skeleton to fight alongside you.",
                         depiction="A dark sorcerer, commanding the dead.")
         self.inventory.add_item(grimoire)
 
@@ -354,7 +359,7 @@ class Druid(Character):
     def __init__(self):
         super().__init__("Swarmcaller", health=4, attack=16, armor=0, mana=30,
                         special_ability="Summon Swarm",
-                         special_ability_depiction="SUMMON SWARM: Unleashes a stinging cloud of insects.",
+                         special_ability_depiction="Unleashes a stinging cloud of insects.",
                         depiction="A subtype of Druid, commands the insects.")
         self.inventory.add_item(whip)
 
@@ -385,7 +390,7 @@ class Cryomancer(Character):
     def __init__(self):
         super().__init__("Cryomancer", health=10, attack=16, armor=0, mana=30,
                         special_ability="Ice Spikes",
-                         special_ability_depiction="ICE SPIKES: Rapid volley of ice spikes toward enemies.",
+                         special_ability_depiction="Rapid volley of ice spikes toward enemies.",
                         depiction="A Mage, specialized to Ice magic, master of frost.")
         self.inventory.add_item(ice_wand)
 
@@ -408,7 +413,7 @@ class Bard(Character):
     def __init__(self):
         super().__init__("Bard", health=10, attack=16, armor=0, mana=30,
                         special_ability="Metal Cards",
-                         special_ability_depiction="METAL CARDS: Sharp volley of metal cards.",
+                         special_ability_depiction="Sharp volley of metal cards towards enemies.",
                         depiction="A performer, master of voice, magical melodies, illusion and perception.")
         self.inventory.add_item(flute)
 
@@ -416,9 +421,9 @@ class Bard(Character):
         if not self.alive:
             print(f"{self.name} is already dead and cannot take damage!")
             return
-        # 10% chance to avoid the attack
+        # 15% chance to avoid the attack
         if random.random() < 0.15:
-            print(f"{self.name} dodges the attack!")
+            print(f"{self.name} avoids the attack!")
             return True
         else:
             reduced_damage = max(0, damage - self.armor)

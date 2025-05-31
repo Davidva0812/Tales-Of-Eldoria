@@ -27,10 +27,11 @@ sleep_button_rect = pygame.Rect(300, 200, 100, 30)
 quest_button_rect = pygame.Rect(300, 200, 100, 30)
 (start_button, exit_button, lab_button, blacksmith_button, back_button,
 tavern_button, profile_button, explore_button, battle_button_enchanted, battle_button_dark_forest,
-battle_button_cemetery, battle_button_ruin, battle_button_peak,battle_button_sunken,
+battle_button_cemetery, battle_button_ruin, battle_button_peak,battle_button_sunken, battle_button_crimson_castle,
+
 sounds_button, show_enemies_button, gate_button, buy_button, sell_button, cross_button,
 show_inventory_button, sell_item_button, attack_button, ability_button,
-ok_button, surrender_button, bag_button, to_explore_button) = [None] * 28
+ok_button, surrender_button, bag_button, to_explore_button) = [None] * 29
 cursor_surf = pygame.image.load(resource_path("assets/images/other/cursor_shiny.png")).convert_alpha()
 cursor_rect = pygame.Rect(0, 0, 50, 50)
 show_sleep_popup = False
@@ -38,6 +39,7 @@ show_quest_popup = False
 show_alchemist_inventory = show_blacksmith_inventory = show_character_inventory = False
 alchemist_inventory_loaded = False
 blacksmith_inventory_loaded = False
+tavern_visited = False
 selected_character = None
 selected_enemy = None
 sleep_message = ""
@@ -160,6 +162,7 @@ while running:
                     current_blacksmith_dialogue = random.choice(
                         blacksmith.dialogues)
                 elif tavern_button.collidepoint(mouse_x, mouse_y):
+                    tavern_visited = True
                     game_state = TAVERN
                     current_saloon_keeper_dialogue = random.choice(
                         saloon_keeper.dialogues)
@@ -338,6 +341,11 @@ while running:
                     game_state = FROSTFANG_PEAK
                 elif battle_button_sunken.collidepoint(mouse_x, mouse_y):
                     game_state = SUNKEN_TEMPLE
+                elif battle_button_crimson_castle.collidepoint(mouse_x, mouse_y):
+                    if selected_character.bloodstone_amount == 6:
+                        game_state = CRIMSON_CASTLE
+                    else:
+                        pass
                 elif cross_button.collidepoint(mouse_x, mouse_y):
                     game_state = CHAPEL
                 elif gate_button.collidepoint(mouse_x, mouse_y):
@@ -529,7 +537,7 @@ while running:
         screen.blit(selected_char_text, (SCREEN_WIDTH // 2 - selected_char_text.get_width() // 2, 1))
         lab_button = draw_button("Laboratory", 600, 60, 200, 50)
         blacksmith_button = draw_button("Blacksmith", 600, 130, 200, 50)
-        tavern_button = draw_button("Tavern", 600, 200, 200, 50)
+        tavern_button = draw_tavern_button("Tavern" if tavern_visited else "Tavern:Start here", 600, 200, 200, 50, IVORY if tavern_visited else RED)
         profile_button = draw_button("Profile", 600, 340, 200, 50)
         explore_button = draw_button("Explore", 600, 410, 200, 50)
         exit_button = draw_button("Exit game", 600, 550, 200, 50)
@@ -626,10 +634,10 @@ while running:
                 border_color = RED
                 screen.blit(barbarian_img, barbarian_rect)
                 pygame.draw.rect(screen, border_color, berserk_rect)
-                screen.blit(berserk_img, (SCREEN_WIDTH // 2 + 180, 305))
+                screen.blit(berserk_img, (SCREEN_WIDTH // 2 - 390, 450))
                 berserk_text = button_font.render(
                     f"{selected_character.special_ability}", True, IVORY)
-                screen.blit(berserk_text, (SCREEN_WIDTH // 2 + 245, 316))
+                screen.blit(berserk_text, (SCREEN_WIDTH // 2 - 325, 451))
                 # Inventory grid
                 cells = draw_grid(border_color, 0, 200, selected_character.inventory,
                                   selected_character.equipped_items, selected_character)
@@ -638,10 +646,10 @@ while running:
                 border_color = LIGHT_BLUE
                 screen.blit(wizard_img, rogue_rect)
                 pygame.draw.rect(screen, border_color, fireball_rect)
-                screen.blit(fireball_img, (SCREEN_WIDTH // 2 + 180, 305))
+                screen.blit(fireball_img, (SCREEN_WIDTH // 2 - 390, 450))
                 fireball_text = button_font.render(
                     f"{selected_character.special_ability}", True, IVORY)
-                screen.blit(fireball_text, (SCREEN_WIDTH // 2 + 245, 316))
+                screen.blit(fireball_text, (SCREEN_WIDTH // 2 - 325, 451))
                 cells = draw_grid(border_color, 0, 200, selected_character.inventory,
                                   selected_character.equipped_items, selected_character)
             elif selected_character == characters[2]:  # Rogue
@@ -649,10 +657,10 @@ while running:
                 border_color = DARK_GREY
                 screen.blit(rogue_img, rogue_rect)
                 pygame.draw.rect(screen, border_color, stab_rect)
-                screen.blit(stab_img, (SCREEN_WIDTH // 2 + 180, 305))
+                screen.blit(stab_img, (SCREEN_WIDTH // 2 - 390, 450))
                 stab_text = button_font.render(
                     f"{selected_character.special_ability}", True, IVORY)
-                screen.blit(stab_text, (SCREEN_WIDTH // 2 + 245, 316))
+                screen.blit(stab_text, (SCREEN_WIDTH // 2 - 325, 451))
                 cells = draw_grid(border_color, 0, 200, selected_character.inventory,
                                   selected_character.equipped_items, selected_character)
             elif selected_character == characters[3]:  # Paladin
@@ -660,10 +668,10 @@ while running:
                 border_color = LIGHT_BROWN
                 screen.blit(paladin_img, paladin_rect)
                 pygame.draw.rect(screen, border_color, heal_rect)
-                screen.blit(heal_img, (SCREEN_WIDTH // 2 + 180, 305))
+                screen.blit(heal_img, (SCREEN_WIDTH // 2 - 390, 450))
                 heal_text = button_font.render(
                     f"{selected_character.special_ability}", True, IVORY)
-                screen.blit(heal_text, (SCREEN_WIDTH // 2 + 245, 316))
+                screen.blit(heal_text, (SCREEN_WIDTH // 2 - 325, 451))
                 cells = draw_grid(border_color, 0, 200, selected_character.inventory,
                                   selected_character.equipped_items, selected_character)
             elif selected_character == characters[4]:  # Necromancer
@@ -671,10 +679,10 @@ while running:
                 border_color = DARK_GREEN
                 screen.blit(necromancer_img, necromancer_rect)
                 pygame.draw.rect(screen, border_color, reanimate_rect)
-                screen.blit(reanimate_img, (SCREEN_WIDTH // 2 + 180, 305))
+                screen.blit(reanimate_img, (SCREEN_WIDTH // 2 - 390, 450))
                 reanimate_text = stats_font.render(
                     f"{selected_character.special_ability}", True, IVORY)
-                screen.blit(reanimate_text, (SCREEN_WIDTH // 2 + 245, 316))
+                screen.blit(reanimate_text, (SCREEN_WIDTH // 2 - 325, 451))
                 cells = draw_grid(border_color, 0, 200, selected_character.inventory,
                                   selected_character.equipped_items, selected_character)
             elif selected_character == characters[5]:  # Druid
@@ -682,10 +690,10 @@ while running:
                 border_color = GREEN
                 screen.blit(druid_img, druid_rect)
                 pygame.draw.rect(screen, border_color, hive_rect)
-                screen.blit(hive_img, (SCREEN_WIDTH // 2 + 180, 305))
+                screen.blit(hive_img, (SCREEN_WIDTH // 2 - 390, 450))
                 hive_text = ability_font.render(
                     f"{selected_character.special_ability}", True, IVORY)
-                screen.blit(hive_text, (SCREEN_WIDTH // 2 + 245, 316))
+                screen.blit(hive_text, (SCREEN_WIDTH // 2 - 325, 451))
                 cells = draw_grid(border_color, 0, 200, selected_character.inventory,
                                   selected_character.equipped_items, selected_character)
             elif selected_character == characters[6]:  # Cryomancer
@@ -693,10 +701,10 @@ while running:
                 border_color = BLUE
                 screen.blit(cryo_img, cryo_rect)
                 pygame.draw.rect(screen, border_color, hive_rect)
-                screen.blit(ice_spike_img, (SCREEN_WIDTH // 2 + 180, 305))
+                screen.blit(ice_spike_img, (SCREEN_WIDTH // 2 - 390, 450))
                 ice_spike_text = ability_font.render(
                     f"{selected_character.special_ability}", True, IVORY)
-                screen.blit(ice_spike_text, (SCREEN_WIDTH // 2 + 245, 316))
+                screen.blit(ice_spike_text, (SCREEN_WIDTH // 2 - 325, 451))
                 cells = draw_grid(border_color, 0, 200, selected_character.inventory,
                                   selected_character.equipped_items, selected_character)
             elif selected_character == characters[7]:  # Bard
@@ -704,10 +712,10 @@ while running:
                 border_color = DARK_BROWN
                 screen.blit(bard_img, bard_rect)
                 pygame.draw.rect(screen, border_color, cards_rect)
-                screen.blit(cards_img, (SCREEN_WIDTH // 2 + 180, 305))
+                screen.blit(cards_img, (SCREEN_WIDTH // 2 - 390, 450))
                 cards_text = ability_font.render(
                     f"{selected_character.special_ability}", True, IVORY)
-                screen.blit(cards_text, (SCREEN_WIDTH // 2 + 245, 316))
+                screen.blit(cards_text, (SCREEN_WIDTH // 2 - 325, 451))
                 cells = draw_grid(border_color, 0, 200, selected_character.inventory,
                                   selected_character.equipped_items, selected_character)
             else:
@@ -735,6 +743,11 @@ while running:
             screen.blit(level_text, (SCREEN_WIDTH // 2 + 245, 250))
             screen.blit(profile_title_surf, profile_title_rect)
             screen.blit(inventory_surf, inventory_rect)
+            # Bloodstone icon
+            pygame.draw.rect(screen, border_color, bloodstone_rect, 3, border_radius=10)
+            screen.blit(bloodstone_img, (SCREEN_WIDTH // 2 + 180, 305))
+            coin_text = depiction_font.render(f"{selected_character.bloodstone_amount}", True, IVORY)
+            screen.blit(coin_text, (SCREEN_WIDTH // 2 + 245, 310))
             # XP icon
             pygame.draw.rect(screen, border_color, xp_rect, 3,border_radius=10)
             screen.blit(xp_img, (SCREEN_WIDTH // 2 + 180, 365))
@@ -746,7 +759,7 @@ while running:
             # Special ability depiction
             ability_desc = item_font.render(
                 selected_character.special_ability_depiction, True, IVORY)
-            screen.blit(ability_desc, (1, 480))
+            screen.blit(ability_desc, (75, 480))
             screen.blit(cursor_surf, cursor_rect)
 
     elif game_state == EXPLORE:
@@ -758,6 +771,7 @@ while running:
         battle_button_ruin = draw_battle_button(320, 130, 100, 25)
         battle_button_peak = draw_battle_button(700, 50, 100, 25)
         battle_button_sunken = draw_battle_button(670, 480, 100, 25)
+        battle_button_crimson_castle = draw_battle_button(310, 430, 100, 25)
         gate_button = draw_gate_button(65, 75, 100, 25)
         cross_button = draw_cross_button(260, 50, 100, 25)
         bag_button = draw_bag_button(500, 550, 50, 50)
@@ -784,7 +798,7 @@ while running:
         screen.blit(cursor_surf, cursor_rect)
 
     elif game_state in [ENCHANTED_FOREST, CEMETERY, DARK_FOREST, HAUNTED_RUIN,
-                        FROSTFANG_PEAK, SUNKEN_TEMPLE]:
+                        FROSTFANG_PEAK, SUNKEN_TEMPLE, CRIMSON_CASTLE]:
         if game_state == ENCHANTED_FOREST:
             screen.blit(enchanted_img, (0, 0))
             draw_location_level(screen, 4, WHITE)
@@ -803,6 +817,9 @@ while running:
         elif game_state == SUNKEN_TEMPLE:
             screen.blit(sunken_temple_img, (0, 0))
             draw_location_level(screen, 6, ORANGE)
+        elif game_state == CRIMSON_CASTLE:
+            screen.blit(crimson_castle_img, (0, 0))
+            draw_location_level(screen, 7, RED)
         back_button = draw_button("Back to Explore", 600, 550, 200, 50)
         show_enemies_button = draw_button("Show Enemies" if not show_enemies else "Hide enemies",
                                      600, 480, 200, 50)

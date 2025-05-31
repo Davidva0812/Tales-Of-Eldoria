@@ -51,8 +51,8 @@ class Alchemist(Merchant):  #creates an instance of HealthPotion class by itself
         self.inventory = Inventory()
 
     def load_alchemist_inventory(self, selected_character):
-        # Health Potions (3)
-        for _ in range(3):
+        # Health Potions (4)
+        for _ in range(4):
             self.inventory.add_item(
                 HealthPotion("Health Potion",
                              resource_path("assets/images/h_potion.png"),
@@ -60,58 +60,58 @@ class Alchemist(Merchant):  #creates an instance of HealthPotion class by itself
                              10))
 
         if selected_character.name == "Paladin":
-            # Mana Potions (3)
-            for _ in range(3):
+            # Mana Potions (4)
+            for _ in range(4):
                 self.inventory.add_item(ManaPotion("Mana Potion",
                                                    resource_path("assets/images/m_potion.png"),
                                                    5, 10))
             self.inventory.add_item(relic)
 
         elif selected_character.name == "Barbarian":
-            # Stamina Potions (3)
-            for _ in range(3):
+            # Stamina Potions (4)
+            for _ in range(4):
                 self.inventory.add_item(StaminaPotion("Stamina Potion",
                                                       resource_path("assets/images/stam_potion.png"),
                                                       5, 10))
             self.inventory.add_item(necklace)
 
         elif selected_character.name == "Rogue":
-            for _ in range(3):
+            for _ in range(4):
                 self.inventory.add_item(StaminaPotion("Stamina Potion",
                                                       resource_path("assets/images/stam_potion.png"),
                                                       5, 10))
             self.inventory.add_item(lantern)
 
         elif selected_character.name == "Necromancer":
-            for _ in range(3):
+            for _ in range(4):
                 self.inventory.add_item(ManaPotion("Mana Potion",
                                                    resource_path("assets/images/m_potion.png"),
                                                    5, 10))
             self.inventory.add_item(necro_ring)
 
         elif selected_character.name == "Wizard":
-            for _ in range(3):
+            for _ in range(4):
                 self.inventory.add_item(ManaPotion("Mana Potion",
                                                    resource_path("assets/images/m_potion.png"),
                                                    5, 10))
             self.inventory.add_item(magic_orb)
 
         elif selected_character.name == "Swarmcaller":
-            for _ in range(3):
+            for _ in range(4):
                 self.inventory.add_item(ManaPotion("Mana Potion",
                                                    resource_path("assets/images/m_potion.png"),
                                                    5, 10))
             self.inventory.add_item(nectar_necklace)
 
         elif selected_character.name == "Cryomancer":
-            for _ in range(3):
+            for _ in range(4):
                 self.inventory.add_item(ManaPotion("Mana Potion",
                                                    resource_path("assets/images/m_potion.png"),
                                                    5, 10))
             self.inventory.add_item(snow_globe)
 
         elif selected_character.name == "Bard":
-            for _ in range(3):
+            for _ in range(4):
                 self.inventory.add_item(ManaPotion("Mana Potion",
                                                    resource_path("assets/images/m_potion.png"),
                                                    5, 10))
