@@ -29,13 +29,13 @@ BATTLE = "battle"
 location_enemies = {
     CEMETERY: [
         Enemy("Skeleton", 10, 5, "skeleton.jpg",
-              random.randint(1, 3), 60, [health_potion], bloodstone=1),
+              random.randint(1, 3), 60, [health_potion]),
         Enemy("Gravedigger", 10, 2, "gravedigger.jpg",
               random.randint(4, 7), 300, [mana_potion]),
         Enemy("Zombie", 10, 5, "zombie.jpg",
               random.randint(8, 10), 500),
         Enemy("Witch of the Ravens", 10, 5, "raven_witch.jpg",
-              random.randint(20, 20), 1000, bloodstone=5),
+              random.randint(20, 20), 1000, bloodstone=1),
     ],
 
     DARK_FOREST: [
@@ -99,7 +99,7 @@ location_enemies = {
         Enemy("Vampire Knight", 100, 14, "vampire_knight.jpg",
               random.randint(66, 70), 4200),
         Enemy("Linda Nocturne", 95, 13, "bride.jpg",
-              random.randint(72, 75), 4500, bloodstone=1),
+              random.randint(72, 75), 4500),
         TheCount("Victor Nocturne", 130, 20, "count.jpg",
               random.randint(100, 100), 5000)
     ]
