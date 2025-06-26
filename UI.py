@@ -180,7 +180,7 @@ def draw_grid(color, cell_offset_x, cell_offset_y, inventory, equipped_items=Non
                         item_info += f" - Armor: {item.armor}"
                     if hasattr(item, "bonus"):
                         item_info += f" - Bonus Energy: {item.bonus}"
-                    info_text = item_stat_font.render(item_info, True, WHITE)
+                    info_text = item_font.render(item_info, True, WHITE)
                     screen.blit(info_text, (185 - info_text.get_width() // 2,
                         SCREEN_HEIGHT - 51))
                     cell_data.append((cell_rect, item))
@@ -250,13 +250,23 @@ def draw_grid(color, cell_offset_x, cell_offset_y, inventory, equipped_items=Non
 
 def bless_in_chapel(character):
     """The hero gains blessing, restoring a small amount of HP, MP or Stamina."""
-    if character.gold_amount >= 20:
-        character.gold_amount -= 20
-        if character.health < character.max_health:
-            character.health = character.max_health
-            return f"{character.name} gains bless and restored full HP."
-        else:
-            return f"{character.name} already at full HP."
+    if character.gold_amount >= 50:
+        character.gold_amount -= 50
+        if hasattr(character, "mana"):
+            if character.health < character.max_health and character.mana < character.max_mana:
+                character.health = character.max_health
+                character.mana = character.max_mana
+                return f"{character.name} gains bless and restored full HP and Mana."
+            else:
+                return f"{character.name} already at full HP/Mana."
+        if hasattr(character, "stamina"):
+            if character.health < character.max_health and character.stamina < character.max_stamina:
+                character.health = character.max_health
+                character.stamina = character.max_stamina
+                return f"{character.name} gains bless and restored full HP and Stamina."
+            else:
+                return f"{character.name} already at full HP/Stamina."
+
     else:
         return f"{character.name} has not enough gold!"
 
@@ -415,7 +425,7 @@ def draw_hero_attack_and_armor(surface, attack, armor):
 
 
 def draw_dodge_chance(surface, x, y):
-    text = stats_font.render("Chance to dodge: 30%.", True, IVORY)
+    text = stats_font.render("Chance to dodge: 25%.", True, IVORY)
     surface.blit(text, (x, y))
 
 
@@ -430,7 +440,7 @@ def draw_soundwave(surface, x, y):
 
 
 def draw_tricky_finale(surface, x, y):
-    text = button_font.render("Tricky Finale: If surrenders, more HP will remain.", True, IVORY)
+    text = stats_font.render("Tricky Finale: If surrenders, more HP will remain.", True, IVORY)
     surface.blit(text, (x, y))
 
 

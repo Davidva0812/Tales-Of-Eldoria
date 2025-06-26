@@ -50,9 +50,9 @@ class Character:
         self.depiction = depiction
         self.alive = True
         self.inventory = Inventory()
-        self.gold_amount = 20
+        self.gold_amount = 10
         self.bloodstone_amount = 0
-        self.max_bloodstone_amount = 7
+        self.max_bloodstone_amount = 6
         self.xp = 0
         self.level = 1
         self.xp_to_next_level = 50
@@ -208,6 +208,9 @@ class Character:
         elif isinstance(self, Wizard) or isinstance(self, Necromancer):
             self.max_health += 4
             self.attack += 2.5
+        elif isinstance(self, Cryomancer) or isinstance(self, Bard):
+            self.max_health += 5
+            self.attack += 2
         else:
             self.max_health += 5
             self.attack += 2
@@ -225,19 +228,18 @@ class Character:
 
 class Barbarian(Character):
     def __init__(self):
-        super().__init__("Barbarian", health=10, attack=10, armor=5, mana=0,
+        super().__init__("Barbarian", health=45, attack=5, armor=0, mana=0,
                          stamina=20, special_ability="Berserk",
                          special_ability_depiction="Frenzy: increases attack, but lowers defense.",
                          depiction="Fueled by fury, unstoppable in the heart of battle.")
-        self.inventory.add_item(axe)
-        self.inventory.add_item(fur_king)
+        #self.inventory.add_item(axe)
 
     def berserk(self):
         if not self.alive:
             print(f"{self.name} is dead and cannot use Berserk!")
             return
         if self.stamina > 0:
-            self.attack += self.level * 10
+            self.attack += self.level * 7
             self.armor -= self.level * 3
             self.stamina -= self.max_stamina
             print(f"{self.name} entered berserk mode! + attack, - defense.")
@@ -247,18 +249,19 @@ class Barbarian(Character):
 
 class Wizard(Character):
     def __init__(self):
-        super().__init__("Wizard", health=10, attack=15, armor=5, mana=25,
+        super().__init__("Wizard", health=42, attack=8, armor=0, mana=30,
                          special_ability="Fireball",
                          special_ability_depiction="Casts a blazing fireball that burns enemies.",
                          depiction="A master of arcane secrets, bending reality with powerful spells.")
-        self.inventory.add_item(spellbook)
+        #self.inventory.add_item(spellbook)
 
     def fireball(self, enemy):
         if not self.alive:
             print(f"{self.name} is dead and cannot use Fireball!")
             return
         if self.mana >= 15:
-            damage = 10 + self.level * 2
+            #damage = 10 + self.level * 2
+            damage = self.attack * 1.7
             self.mana -= 15
             print(f"{self.name} casts a fireball at {enemy.name}!")
             enemy.enemy_take_damage(damage)
@@ -270,19 +273,20 @@ class Wizard(Character):
 
 class Rogue(Character):
     def __init__(self):
-        super().__init__("Rogue", health=8, attack=12, armor=8, mana=0,
-                         stamina=22,special_ability="Stab",
+        super().__init__("Rogue", health=45, attack=5, armor=0, mana=0,
+                         stamina=20,
+                         special_ability="Stab",
                          special_ability_depiction="Strikes swiftly to deal critical hit.",
                          depiction=" A shadow in the night, striking swiftly and unseen.")
-        self.inventory.add_item(dagger)
+        #self.inventory.add_item(dagger)
 
     def stab(self, enemy):
         if not self.alive:
             print(f"{self.name} is dead and cannot use Stab!")
             return
-        if self.stamina >= 15:
-            damage = self.attack * 2
-            self.stamina -= 15
+        if self.stamina >= 10:
+            damage = self.attack * 1.5
+            self.stamina -= 10
             print(f"{self.name} lands a critical hit on {enemy.name}!")
             enemy.enemy_take_damage(damage)
             if enemy.health <= 0:
@@ -294,8 +298,8 @@ class Rogue(Character):
         if not self.alive:
             print(f"{self.name} is already dead and cannot take damage!")
             return
-        # 30% chance to dodge the attack
-        if random.random() < 0.3:
+        # 25% chance to dodge the attack
+        if random.random() < 0.25:
             print(f"{self.name} dodges the attack!")
             return True
         else:
@@ -309,21 +313,21 @@ class Rogue(Character):
 
 class Paladin(Character):
     def __init__(self):
-        super().__init__("Paladin", health=12, attack=8, armor=2, mana=18,
+        super().__init__("Paladin", health=47, attack=3, armor=0, mana=20,
                          special_ability="Heal",
-                         special_ability_depiction="Restores a portion of health using divine energy.",
+                         special_ability_depiction="Restores health using divine energy.",
                          depiction="A holy warrior, wielding divine power and protect the weak.")
-        self.inventory.add_item(sword)
+        #self.inventory.add_item(sword)
 
     def heal(self):
         if not self.alive:
             print(f"{self.name} is dead and cannot use Heal!")
             return
 
-        if self.mana >= 15:
+        if self.mana >= 10:
             if self.health < self.max_health:
                 self.health = min(self.health + self.level * 2, self.max_health)  # Prevent overhealing
-                self.mana -= 15
+                self.mana -= 10
                 print(f"{self.name} heals himself! New HP: {self.health}")
             else:
                 print(f"{self.name} is already at max HP!")
@@ -333,19 +337,19 @@ class Paladin(Character):
 
 class Necromancer(Character):
     def __init__(self):
-        super().__init__("Necromancer", health=4, attack=16, armor=0, mana=30,
+        super().__init__("Necromancer", health=40, attack=10, armor=0, mana=30,
                         special_ability="Reanimate",
                          special_ability_depiction="Raises a skeleton to fight alongside you.",
                         depiction="A dark sorcerer, commanding the dead.")
-        self.inventory.add_item(grimoire)
+        #self.inventory.add_item(grimoire)
 
     def reanimate(self, enemy):
         if not self.alive:
             print(f"{self.name} is dead and cannot use Summon skeletons!")
             return
 
-        if self.mana >= 5:
-            self.mana -= 5
+        if self.mana >= 10:
+            self.mana -= 10
             skeleton_damage = self.attack // 2
             print(f"{self.name} summons a skeleton! It attacks {enemy.name} for {skeleton_damage} damage before vanishing.")
             enemy.enemy_take_damage(skeleton_damage)
@@ -357,19 +361,20 @@ class Necromancer(Character):
 
 class Druid(Character):
     def __init__(self):
-        super().__init__("Swarmcaller", health=4, attack=16, armor=0, mana=30,
+        super().__init__("Swarmcaller", health=43, attack=7, armor=0, mana=30,
                         special_ability="Summon Swarm",
                          special_ability_depiction="Unleashes a stinging cloud of insects.",
                         depiction="A subtype of Druid, commands the insects.")
-        self.inventory.add_item(whip)
+        #self.inventory.add_item(whip)
 
     def summon_swarm(self, enemy):
         if not self.alive:
             print(f"{self.name} is dead and cannot use Summon Swarm!")
             return
-        if self.mana >= 10:
-            damage = 8 + self.level * 2
-            self.mana -= 10
+        if self.mana >= 15:
+            #damage = 8 + self.level * 2
+            damage = self.attack * 1.3
+            self.mana -= 15
             print(f"{self.name} casts Summon Swarm at {enemy.name}!")
             enemy.enemy_take_damage(damage)
             if enemy.health <= 0:
@@ -388,19 +393,20 @@ class Druid(Character):
 
 class Cryomancer(Character):
     def __init__(self):
-        super().__init__("Cryomancer", health=10, attack=16, armor=0, mana=30,
+        super().__init__("Cryomancer", health=44, attack=6, armor=0, mana=30,
                         special_ability="Ice Spikes",
                          special_ability_depiction="Rapid volley of ice spikes toward enemies.",
                         depiction="A Mage, specialized to Ice magic, master of frost.")
-        self.inventory.add_item(ice_wand)
+        #self.inventory.add_item(ice_wand)
 
     def ice_spikes(self, enemy):
         if not self.alive:
             print(f"{self.name} is dead and cannot use Ice Spikes!")
             return
-        if self.mana >= 10:
-            damage = 8 + self.level * 2
-            self.mana -= 10
+        if self.mana >= 15:
+            damage = 10 + self.level * 3
+            #damage = self.attack * 1.5
+            self.mana -= 15
             print(f"{self.name} casts Ice Spikes at {enemy.name}!")
             enemy.enemy_take_damage(damage)
             if enemy.health <= 0:
@@ -411,18 +417,18 @@ class Cryomancer(Character):
 
 class Bard(Character):
     def __init__(self):
-        super().__init__("Bard", health=10, attack=16, armor=0, mana=30,
+        super().__init__("Bard", health=40, attack=10, armor=0, mana=30,
                         special_ability="Metal Cards",
                          special_ability_depiction="Sharp volley of metal cards towards enemies.",
                         depiction="A performer, master of voice, magical melodies, illusion and perception.")
-        self.inventory.add_item(flute)
+        #self.inventory.add_item(flute)
 
     def take_damage(self, damage):
         if not self.alive:
             print(f"{self.name} is already dead and cannot take damage!")
             return
-        # 15% chance to avoid the attack
-        if random.random() < 0.15:
+        # 20% chance to avoid the attack
+        if random.random() < 0.2:
             print(f"{self.name} avoids the attack!")
             return True
         else:
@@ -437,9 +443,9 @@ class Bard(Character):
         if not self.alive:
             print(f"{self.name} is dead and cannot use Metal Cards!")
             return
-        if self.mana >= 10:
-            damage = 8 + self.level * 2
-            self.mana -= 10
+        if self.mana >= 15:
+            damage = 8 + self.level * 2.5
+            self.mana -= 15
             print(f"{self.name} casts Metal cards at {enemy.name}!")
             enemy.enemy_take_damage(damage)
             if enemy.health <= 0:

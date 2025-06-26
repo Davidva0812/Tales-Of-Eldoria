@@ -50,8 +50,9 @@ explore_music_playing = location_music_playing = chapel_music_playing = battle_m
 game_state = MENU  # At the beginning, the menu will appear
 player_name = ""
 bless_cooldown = 0  # When was the latest bonus
-bless_delay = 15000
+bless_delay = 150000  # 2.5 min
 enemy_rects = []
+berserk_pressed = False
 
 
 running = True
@@ -441,7 +442,7 @@ while running:
                         selected_character.attack_enemy(selected_enemy)
                         selected_enemy.enemy_attack(selected_character)
                 if ability_button.collidepoint(mouse_x, mouse_y):
-                    if selected_character.health <= 0 or selected_enemy.health <= 0:
+                    if selected_character.health <=0 or selected_enemy.health <= 0:
                         pass
                     else:
                         if isinstance(selected_character, Paladin):
@@ -449,10 +450,13 @@ while running:
                         elif isinstance(selected_character, Barbarian):
                             if selected_character.stamina == selected_character.max_stamina:
                                 selected_character.berserk()
-                                selected_character.attack -= selected_character.level * 4
-                                selected_character.armor += selected_character.level * 2
+                                berserk_pressed = True
+                                #selected_character.attack -= selected_character.level * 7
+                                #selected_character.armor += selected_character.level * 3
                             else:
                                 pass
+                                #selected_character.attack -= selected_character.level * 10
+                                #selected_character.armor += selected_character.level * 3
                         elif isinstance(selected_character, Wizard):
                             selected_character.fireball(selected_enemy)
                             selected_enemy.enemy_attack(selected_character)
@@ -461,7 +465,7 @@ while running:
                             selected_enemy.enemy_attack(selected_character)
                         elif isinstance(selected_character, Necromancer):
                             selected_character.reanimate(selected_enemy)
-                            selected_enemy.enemy_attack(selected_character)
+                            #selected_enemy.enemy_attack(selected_character)
                         elif isinstance(selected_character, Druid):
                             selected_character.summon_swarm(selected_enemy)
                             selected_enemy.enemy_attack(selected_character)
@@ -485,6 +489,13 @@ while running:
                         battle_music_playing = False
                         pygame.mixer.music.play(-1)
                 if ok_button_rect.collidepoint(mouse_x, mouse_y):
+                    if isinstance(selected_character, Barbarian):
+                        if berserk_pressed:
+                            selected_character.attack -= selected_character.level * 7
+                            selected_character.armor += selected_character.level * 3
+                            berserk_pressed = False
+                        else:
+                            pass
                     if selected_enemy.health <= 0:
                         if previous_game_state is not None:
                             game_state = previous_game_state
@@ -622,7 +633,7 @@ while running:
         cells = []
         if selected_character:
             stat_name = get_stat_name(selected_character)
-            stats = [f"Name: {player_name}",f"Health: {selected_character.health}",
+            stats = [f"Name: {player_name}",f"Health: {selected_character.health}/{selected_character.max_health}",
                 f"{stat_name}: {selected_character.attack}",f"Armor: {selected_character.armor}",
                 f"Mana: {selected_character.mana}/{selected_character.max_mana}",
                 f"Stamina: {selected_character.stamina}/{selected_character.max_stamina}"]

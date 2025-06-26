@@ -203,119 +203,119 @@ class ArmorAmplifier(OtherItem):
             return f"{target.name} has no armor to equip!"
 
 health_potion = HealthPotion("Health Potion", "assets/images/h_potion.png",
-                             5, 10)
+                             30, 50)
 mana_potion = ManaPotion("Mana Potion","assets/images/m_potion.png",
-                         5, 10)
+                         30, 30)
 stamina_potion = StaminaPotion("Stamina Potion", "assets/images/stam_potion.png",
-                               5, 10)
+                               30, 30)
 
 #Paladin equipments
-sword = Weapon("Great Sword", 10, "assets/images/equipments/sword.jpg",
-               1, "Paladin")
-sword_2 = Weapon("Angel's Wraith", 20, "assets/images/equipments/a_sword.jpg",
-               3, "Paladin")
-pal_helm = Helmet("Knight's Helmet", 10, "assets/images/equipments/pal_helm_1.jpg",
-                  1,"Paladin")
-pal_helm_2 = Helmet("Winged Helmet", 20, "assets/images/equipments/pal_helm_2.jpg",
-                  3,"Paladin")
-pal_armor = Armor("Heavy Breastplate", 15, "assets/images/equipments/pal_armor_1.jpg",
-                  5, "Paladin")
-pal_armor_2 = Armor("Holy Armor", 30, "assets/images/equipments/pal_armor_2.jpg",
-                  4, "Paladin")
+sword = Weapon("Great Sword", 5, "assets/images/equipments/sword.jpg",
+               25, "Paladin")
+sword_2 = Weapon("Angel's Wraith", 15, "assets/images/equipments/a_sword.jpg",
+               100, "Paladin")
+pal_helm = Helmet("Knight's Helmet", 5, "assets/images/equipments/pal_helm_1.jpg",
+                  40,"Paladin")
+pal_helm_2 = Helmet("Winged Helmet", 10, "assets/images/equipments/pal_helm_2.jpg",
+                  60,"Paladin")
+pal_armor = Armor("Heavy Breastplate", 10, "assets/images/equipments/pal_armor_1.jpg",
+                  50, "Paladin")
+pal_armor_2 = Armor("Holy Armor", 20, "assets/images/equipments/pal_armor_2.jpg",
+                  100, "Paladin")
 relic = Object("Holy Relic", 10, "assets/images/equipments/relic.jpg",
-               3, "Paladin")
+               70, "Paladin")
 
 # Barbarian equipments
 axe = Weapon("War-axe", 10, "assets/images/equipments/axe.jpg",
-               10, "Barbarian")
+               25, "Barbarian")
 claymore = Weapon("Blade of Fury", 20, "assets/images/equipments/claymore.jpg",
-               30, "Barbarian")
-viking_helm = Helmet("Viking Helmet", 10, "assets/images/equipments/viking_helm.jpg",
-                  15,"Barbarian")
-chaos_helm = Helmet("Chaos Helmet", 20, "assets/images/equipments/chaos_helm.jpg",
-                  30,"Barbarian")
-fur = Armor("Fur", 20, "assets/images/equipments/fur.jpg",
-                  30,"Barbarian")
-fur_king = Armor("Fur of Barbarian King", 30, "assets/images/equipments/fur.jpg",
+               100, "Barbarian")
+viking_helm = Helmet("Viking Helmet", 3, "assets/images/equipments/viking_helm.jpg",
+                  40,"Barbarian")
+chaos_helm = Helmet("Chaos Helmet", 5, "assets/images/equipments/chaos_helm.jpg",
+                  60,"Barbarian")
+fur = Armor("Fur", 5, "assets/images/equipments/fur.jpg",
                   50,"Barbarian")
-necklace = Object("Wolf necklace", 20, "assets/images/equipments/necklace.jpg",
-                  3,"Barbarian")
+fur_king = Armor("Fur of Barbarian King", 10, "assets/images/equipments/fur.jpg",
+                  100,"Barbarian")
+necklace = Object("Wolf necklace", 10, "assets/images/equipments/necklace.jpg",
+                  70,"Barbarian")
 
 
 # Rogue equipments
 dagger = Weapon("Dagger", 10, "assets/images/equipments/dagger.jpg",
-               10, "Rogue")
+               25, "Rogue")
 rapier = Weapon("Champion's Rapier", 20, "assets/images/equipments/rapier.jpg",
-               5, "Rogue")
-hood = Helmet("Hood", 10, "assets/images/equipments/hood.jpg",
-                  15,"Rogue")
-leather_armor= Armor("Leather Armor", 20, "assets/images/equipments/leather_armor.jpg",
-                  30,"Rogue")
-lantern = Object("Hooded Lantern", 20, "assets/images/equipments/hooded_lantern.jpg",
-                  3,"Rogue")
+               100, "Rogue")
+hood = Helmet("Hood", 5, "assets/images/equipments/hood.jpg",
+                  50,"Rogue")
+leather_armor= Armor("Leather Armor", 10, "assets/images/equipments/leather_armor.jpg",
+                  80,"Rogue")
+lantern = Object("Hooded Lantern", 10, "assets/images/equipments/hooded_lantern.jpg",
+                  70,"Rogue")
 
 # Necromancer equipments
-grimoire = Weapon("Grimoire", 10, "assets/images/equipments/grimoire.jpg",
-               10, "Necromancer")
-skull_staff = Weapon("Skull Staff", 20, "assets/images/equipments/skull_staff.jpg",
-               30, "Necromancer")
-scythe = Weapon("Soul Reaper", 20, "assets/images/equipments/scythe.jpg",
-               30, "Necromancer")
-necro_crown = Helmet("Lich King's Crown", 10, "assets/images/equipments/skull_crown.jpg",
-                  15,"Necromancer")
-necro_cloak = Armor("Cloak of Misery", 20, "assets/images/equipments/necro_cloak2.jpg",
-                  30,"Necromancer")
+grimoire = Weapon("Grimoire", 12, "assets/images/equipments/grimoire.jpg",
+               25, "Necromancer")
+skull_staff = Weapon("Skull Staff", 25, "assets/images/equipments/skull_staff.jpg",
+               75, "Necromancer")
+scythe = Weapon("Soul Reaper", 30, "assets/images/equipments/scythe.jpg",
+               120, "Necromancer")
+necro_crown = Helmet("Lich King's Crown", 3, "assets/images/equipments/skull_crown.jpg",
+                  50,"Necromancer")
+necro_cloak = Armor("Cloak of Misery", 5, "assets/images/equipments/necro_cloak2.jpg",
+                  80,"Necromancer")
 necro_ring = Object("Phylactery", 20, "assets/images/equipments/skull_ring.jpg",
-                  3,"Necromancer")
+                  70,"Necromancer")
 
 # Wizard equipments
 spellbook = Weapon("Spellbook", 10, "assets/images/equipments/spellbook.jpg",
-               10, "Wizard")
-mage_staff = Weapon("Graduate's Reward", 20, "assets/images/equipments/mage_staff.jpg",
-               30, "Wizard")
-wiz_hat = Helmet("Wizard Hat", 10, "assets/images/equipments/wiz_hat.jpg",
-                  15,"Wizard")
-wiz_cloak_1 = Armor("Apprentice Cloak", 20, "assets/images/equipments/wiz_cloak_1.jpg",
-                  30,"Wizard")
-wiz_cloak_2 = Armor("Wizard Cloak", 20, "assets/images/equipments/wiz_cloak_2.jpg",
-                  30,"Wizard")
+               25, "Wizard")
+mage_staff = Weapon("Graduate's Reward", 22, "assets/images/equipments/mage_staff.jpg",
+               100, "Wizard")
+wiz_hat = Helmet("Wizard Hat", 3, "assets/images/equipments/wiz_hat.jpg",
+                  40,"Wizard")
+wiz_cloak_1 = Armor("Apprentice Cloak", 5, "assets/images/equipments/wiz_cloak_1.jpg",
+                  50,"Wizard")
+wiz_cloak_2 = Armor("Wizard Cloak", 8, "assets/images/equipments/wiz_cloak_2.jpg",
+                  100,"Wizard")
 magic_orb = Object("Magic Orb", 20, "assets/images/equipments/orb.jpg",
-                  3,"Wizard")
+                  70,"Wizard")
 
 # Druid equipments
 whip = Weapon("Thorned Rose whip", 10, "assets/images/equipments/whip.jpg",
-               10, "Druid")
-hive_staff = Weapon("Staff of Swarm Queen", 20, "assets/images/equipments/hive_staff.jpg",
-               30, "Druid")
-rose_crown = Helmet("Thornbloom Crown", 10, "assets/images/equipments/rose_crown.jpg",
-                  15,"Druid")
-moss_cloak = Armor("Mossvine Mantle", 20, "assets/images/equipments/moss_cloak.jpg",
-                  30,"Druid")
+               25, "Druid")
+hive_staff = Weapon("Staff of Swarm Queen", 22, "assets/images/equipments/hive_staff.jpg",
+               100, "Druid")
+rose_crown = Helmet("Thornbloom Crown", 5, "assets/images/equipments/rose_crown.jpg",
+                  50,"Druid")
+moss_cloak = Armor("Mossvine Mantle", 10, "assets/images/equipments/moss_cloak.jpg",
+                  80,"Druid")
 nectar_necklace = Object("Nectar Necklace", 20, "assets/images/equipments/nectar_necklace.jpg",
-                  3,"Druid")
+                  70,"Druid")
 
 # Cryomancer equipments
 ice_wand = Weapon("Blizzard Wand", 10, "assets/images/equipments/ice_wand.jpg",
-               10, "Cryomancer")
-specter = Weapon("Frost Queen's Specter", 20, "assets/images/equipments/ice_specter.jpg",
-               30, "Cryomancer")
-ice_crown = Helmet("Ice Crystal Crown", 10, "assets/images/equipments/ice_crown.jpg",
-                  15,"Cryomancer")
-ice_cloak = Armor("Mantle of Endless Winter", 20, "assets/images/equipments/ice_cloak.jpg",
-                  30,"Cryomancer")
-ice_armor = Armor("Frostspike Armor", 20, "assets/images/equipments/frost_armor.jpg",
-                  30,"Cryomancer")
+               25, "Cryomancer")
+specter = Weapon("Frost Queen's Specter", 22, "assets/images/equipments/ice_specter.jpg",
+               100, "Cryomancer")
+ice_crown = Helmet("Ice Crystal Crown", 5, "assets/images/equipments/ice_crown.jpg",
+                  40,"Cryomancer")
+ice_cloak = Armor("Mantle of Endless Winter", 10, "assets/images/equipments/ice_cloak.jpg",
+                  50,"Cryomancer")
+ice_armor = Armor("Frostspike Armor", 15, "assets/images/equipments/frost_armor.jpg",
+                  100,"Cryomancer")
 snow_globe = Object("Globe of Last Winter", 20, "assets/images/equipments/ice_globe.jpg",
-                  3,"Cryomancer")
+                  70,"Cryomancer")
 
 # Bard equipments
 flute = Weapon("Flute", 10, "assets/images/equipments/flute.jpg",
-               10, "Bard")
-lute = Weapon("Lute of Endless Songs", 20, "assets/images/equipments/lyre.jpg",
-               30, "Bard")
-bard_hat= Helmet("Storyteller's Hat", 10, "assets/images/equipments/bard_hat.jpg",
-                  15,"Bard")
-bard_cloak = Armor("Elegant Cloak", 20, "assets/images/equipments/bard_cloak.jpg",
-                  30,"Bard")
+               25, "Bard")
+lute = Weapon("Lute of Endless Songs", 23, "assets/images/equipments/lyre.jpg",
+               100, "Bard")
+bard_hat= Helmet("Storyteller's Hat", 3, "assets/images/equipments/bard_hat.jpg",
+                  50,"Bard")
+bard_cloak = Armor("Elegant Cloak", 10, "assets/images/equipments/bard_cloak.jpg",
+                  80,"Bard")
 lucky_coin = Object("Lucky Coin", 20, "assets/images/equipments/luck_coin.jpg",
-                  3,"Bard")
+                  70,"Bard")
