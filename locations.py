@@ -1,6 +1,5 @@
 import random
-from enemies import Enemy, TheCount
-from fantasy_rpg_game.enemies import TheBride
+from enemies import Enemy, TheCount, TheBride
 from items import *
 
 
