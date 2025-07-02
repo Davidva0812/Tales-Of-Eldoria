@@ -1,3 +1,4 @@
+import pygame
 from characters import (Barbarian, Wizard, Rogue, Paladin, Necromancer,
                         Druid, Cryomancer, Bard)
 from settings_images import *
@@ -46,6 +47,8 @@ buy_button_rect = pygame.Rect(300, 500, 200, 50)
 sell_button_rect = pygame.Rect(300, 500, 200, 50)
 bless_button_rect = pygame.Rect(600, 400, 200, 50)
 ok_button_rect = pygame.Rect(290, 450, 200, 50)
+load_button_rect = pygame.Rect(290, 400, 200, 50)
+confirm_save_button_rect = pygame.Rect(200, 350, 200, 50)
 #popup buttons
 popup_rect = pygame.Rect(100, 250, 450, 150)
 popup_rect_quest = pygame.Rect(20, 100, 800, 50)
@@ -144,9 +147,10 @@ def draw_battle_popup(selected_character, selected_enemy):
         is_defeat = True
         pygame.draw.rect(screen, RED, popup_rect_battle)
         text_surface = stats_font.render("Game Over! Close the window to exit.", True, BLACK)
+        load_button = draw_button("Load game", 290, 400, 200, 50)
         ok_button = draw_button("Exit game", 290, 450, 200, 50)
         screen.blit(text_surface, (popup_rect_battle.x + 15, popup_rect_battle.y))
-        return ok_button
+        return load_button, ok_button
 
 
 def draw_grid(color, cell_offset_x, cell_offset_y, inventory, equipped_items=None, selected_character=None):
@@ -484,3 +488,11 @@ def draw_quest_popup(character):
         text_surface = item_stat_font.render("None", True, BLACK)
     pygame.draw.rect(screen, BROWN, popup_rect_quest)  # Popup background
     screen.blit(text_surface, (popup_rect_quest.x, popup_rect_quest.y + 10))
+
+def draw_save_popup():
+    pygame.draw.rect(screen, DARKER_GREY, popup_rect)  # Popup háttér
+    text_surface = button_font.render("Saved successfully", True, IVORY)
+    screen.blit(text_surface, (popup_rect.x + 100, popup_rect.y + 30))
+    confirm_save_button = draw_button("OK", 200, 350, 200, 50)
+
+    return confirm_save_button

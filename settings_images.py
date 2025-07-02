@@ -1,3 +1,6 @@
+import pygame
+from pygame import FULLSCREEN
+
 from locations import *
 from utils import resource_path
 

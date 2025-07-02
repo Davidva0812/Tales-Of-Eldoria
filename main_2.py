@@ -11,6 +11,8 @@ from locations import *
 import settings_images
 import os
 import utils
+import quest_logs
+from save_load import *
 
 
 def resource_path(relative_path):
@@ -28,14 +30,14 @@ quest_button_rect = pygame.Rect(300, 200, 100, 30)
 (start_button, exit_button, lab_button, blacksmith_button, back_button,
 tavern_button, profile_button, explore_button, battle_button_enchanted, battle_button_dark_forest,
 battle_button_cemetery, battle_button_ruin, battle_button_peak,battle_button_sunken, battle_button_crimson_castle,
-
 sounds_button, show_enemies_button, gate_button, buy_button, sell_button, cross_button,
 show_inventory_button, sell_item_button, attack_button, ability_button,
-ok_button, surrender_button, bag_button, to_explore_button) = [None] * 29
+ok_button, surrender_button, bag_button, to_explore_button, save_button, load_button, confirm_save_button) = [None] * 32
 cursor_surf = pygame.image.load(resource_path("assets/images/other/cursor_shiny.png")).convert_alpha()
 cursor_rect = pygame.Rect(0, 0, 50, 50)
 show_sleep_popup = False
 show_quest_popup = False
+show_save_popup = False
 show_alchemist_inventory = show_blacksmith_inventory = show_character_inventory = False
 alchemist_inventory_loaded = False
 blacksmith_inventory_loaded = False
@@ -52,7 +54,7 @@ player_name = ""
 bless_cooldown = 0  # When was the latest bonus
 bless_delay = 150000  # 2.5 min
 enemy_rects = []
-berserk_pressed = False
+#berserk_pressed = False
 
 
 running = True
@@ -173,6 +175,12 @@ while running:
                     game_state = EXPLORE
                 elif exit_button.collidepoint(mouse_x, mouse_y):
                     game_state = CONFIRM_EXIT
+                elif save_button.collidepoint(mouse_x, mouse_y):
+                    save_game(selected_character)
+                    show_save_popup = True
+                if confirm_save_button_rect.collidepoint(mouse_x, mouse_y):
+                    show_save_popup = False
+                    game_state = TOWN
 
         elif game_state == ALCHEMIST_LABORATORY:
             if not alchemist_inventory_loaded:
@@ -442,15 +450,15 @@ while running:
                         selected_character.attack_enemy(selected_enemy)
                         selected_enemy.enemy_attack(selected_character)
                 if ability_button.collidepoint(mouse_x, mouse_y):
-                    if selected_character.health <=0 or selected_enemy.health <= 0:
+                    if selected_character.health <= 0 or selected_enemy.health <= 0:
                         pass
                     else:
                         if isinstance(selected_character, Paladin):
                             selected_character.heal()
                         elif isinstance(selected_character, Barbarian):
                             if selected_character.stamina == selected_character.max_stamina:
-                                selected_character.berserk()
-                                berserk_pressed = True
+                                selected_character.enter_berserk()
+                                #berserk_pressed = True
                                 #selected_character.attack -= selected_character.level * 7
                                 #selected_character.armor += selected_character.level * 3
                             else:
@@ -490,12 +498,7 @@ while running:
                         pygame.mixer.music.play(-1)
                 if ok_button_rect.collidepoint(mouse_x, mouse_y):
                     if isinstance(selected_character, Barbarian):
-                        if berserk_pressed:
-                            selected_character.attack -= selected_character.level * 7
-                            selected_character.armor += selected_character.level * 3
-                            berserk_pressed = False
-                        else:
-                            pass
+                        selected_character.exit_berserk()
                     if selected_enemy.health <= 0:
                         if previous_game_state is not None:
                             game_state = previous_game_state
@@ -505,6 +508,11 @@ while running:
                     battle_channel.stop()
                     battle_music_playing = False
                     adventure_channel.play(adventure_theme, loops=-1)
+                if load_button_rect.collidepoint(mouse_x, mouse_y):
+                    load_game()
+                    selected_character.health = 1
+                    game_state = TOWN
+                    selected_character.alive = True
 
     # Drawing
     if game_state == MENU:
@@ -549,9 +557,12 @@ while running:
         lab_button = draw_button("Laboratory", 600, 60, 200, 50)
         blacksmith_button = draw_button("Blacksmith", 600, 130, 200, 50)
         tavern_button = draw_tavern_button("Tavern" if tavern_visited else "Tavern:Start here", 600, 200, 200, 50, IVORY if tavern_visited else RED)
+        save_button = draw_button("Save game", 600, 270, 200, 50)
         profile_button = draw_button("Profile", 600, 340, 200, 50)
         explore_button = draw_button("Explore", 600, 410, 200, 50)
         exit_button = draw_button("Exit game", 600, 550, 200, 50)
+        if show_save_popup:
+            draw_save_popup()
         screen.blit(cursor_surf, cursor_rect)
 
     elif game_state == ALCHEMIST_LABORATORY:

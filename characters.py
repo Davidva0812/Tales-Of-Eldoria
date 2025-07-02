@@ -1,6 +1,7 @@
 import random
 from items import *
 from settings_images import die_channel, die_theme
+import json
 
 
 class Inventory:
@@ -144,11 +145,17 @@ class Character:
         if item in self.inventory.items:
             self.inventory.remove_item(item)
         if isinstance(item, Weapon):
+            if isinstance(self, Barbarian):
+                self.base_attack += item.damage
             self.attack += item.damage
         elif isinstance(item, Helmet):
+            if isinstance(self, Barbarian):
+                self.base_armor += item.armor
             self.armor += item.armor
             print(f"{self.name} equips {item.name}, increasing damage by {item.armor}!")
         elif isinstance(item, Armor):
+            if isinstance(self, Barbarian):
+                self.base_armor += item.armor
             self.armor += item.armor
             print(f"{self.name} equips {item.name}, increasing damage by {item.armor}!")
         elif isinstance(item, Object):
@@ -169,10 +176,16 @@ class Character:
             if item not in self.inventory.items:
                 self.inventory.add_item(item)
             if isinstance(item, Weapon):
+                if isinstance(self, Barbarian):
+                    self.base_attack -= item.damage
                 self.attack -= item.damage
             elif isinstance(item, Helmet):
+                if isinstance(self, Barbarian):
+                    self.base_armor -= item.armor
                 self.armor -= item.armor
             elif isinstance(item, Armor):
+                if isinstance(self, Barbarian):
+                    self.base_armor -= item.armor
                 self.armor -= item.armor
             elif isinstance(item, Object):
                 if isinstance(self, Barbarian) or isinstance(self, Rogue):
@@ -202,9 +215,13 @@ class Character:
         self.xp -= self.xp_to_next_level
         self.level += 1
         self.xp_to_next_level = int(self.xp_to_next_level * 1.5)  # More XP needed for leveling up
-        if isinstance(self, Paladin) or isinstance(self, Barbarian):
+        if isinstance(self, Paladin):
             self.max_health += 6
             self.attack += 1.5
+        elif isinstance(self, Barbarian):
+            self.max_health += 6
+            self.base_attack += 1.5
+            self.attack = self.base_attack
         elif isinstance(self, Wizard) or isinstance(self, Necromancer):
             self.max_health += 4
             self.attack += 2.5
@@ -225,6 +242,75 @@ class Character:
         return (f"{self.name} leveled up to level {self.level}! "
                 f"XP needed for next level: {self.xp_to_next_level}")
 
+    """def save_game(self, filename="save_game.json"):
+        data = {
+            "name": self.name,
+            "class": self.__class__.__name__,
+            "level": self.level,
+            "health": self.health,
+            "max_health": self.max_health,
+            "attack": self.attack,
+            "mana": self.mana,
+            "max_mana": self.max_mana,
+            "stamina": self.stamina,
+            "max_stamina": self.max_stamina,
+            "armor": self.armor,
+            "xp": self.xp,
+            "gold_amount": self.gold_amount,
+            "inventory": [item.name for item in character.inventory.items],
+        "equipped_items": [item.name if item else None for item in character.equipped_items],
+            "bloodstone_amount": self.bloodstone_amount
+        }
+        with open(filename, "w") as f:
+            json.dump(data, f, indent=4)
+        print("Game saved successfully.")
+
+    def load_game(self, filename="save_game.json"):
+        with open(filename, "r") as f:
+            data = json.load(f)
+
+        # Characters
+        if data["class"] == "Barbarian":
+            character = Barbarian()
+
+        elif data["class"] == "Wizard":
+            character = Wizard()
+
+        elif data["class"] == "Rogue":
+            character = Rogue()
+
+        elif data["class"] == "Paladin":
+            character = Paladin()
+
+        elif data["class"] == "Necromancer":
+            character = Necromancer()
+
+        elif data["class"] == "Druid":
+            character = Druid()
+
+        elif data["class"] == "Cryomancer":
+            character = Cryomancer()
+
+        elif data["class"] == "Bard":
+            character = Bard()
+
+        self.name = data["name"]
+        self.level = data["level"]
+        self.health = data["health"]
+        self.max_health = data["max_health"]
+        self.mana = data["mana"]
+        self.max_mana = data["max_mana"]
+        self.stamina = data["stamina"]
+        self.max_stamina = data["max_stamina"]
+        self.armor = data["armor"]
+        self.xp = data["xp"]
+        self.gold_amount = data["gold_amount"]
+        self.inventory = data["inventory"]
+        self.equipped_items = data ["equipped_items"]
+        self.bloodstone_amount = data["bloodstone_amount"]
+
+        return character"""
+
 
 class Barbarian(Character):
     def __init__(self):
@@ -233,18 +319,24 @@ class Barbarian(Character):
                          special_ability_depiction="Frenzy: increases attack, but lowers defense.",
                          depiction="Fueled by fury, unstoppable in the heart of battle.")
         #self.inventory.add_item(axe)
+        self.berserk_active = False
+        self.base_attack = self.attack
+        self.base_armor = self.armor
 
-    def berserk(self):
-        if not self.alive:
-            print(f"{self.name} is dead and cannot use Berserk!")
-            return
-        if self.stamina > 0:
+    def enter_berserk(self):
+        if self.stamina > 0 and not self.berserk_active:
             self.attack += self.level * 7
             self.armor -= self.level * 3
-            self.stamina -= self.max_stamina
-            print(f"{self.name} entered berserk mode! + attack, - defense.")
-        else:
-            pass
+            self.berserk_active = True
+            self.stamina = 0
+            print("You enter berserk mode!")
+
+    def exit_berserk(self):
+        if self.berserk_active:
+            self.attack = self.base_attack
+            self.armor = self.base_armor
+            self.berserk_active = False
+            print("You calm down and return to normal.")
 
 
 class Wizard(Character):

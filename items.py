@@ -224,6 +224,8 @@ pal_armor_2 = Armor("Holy Armor", 20, "assets/images/equipments/pal_armor_2.jpg"
                   100, "Paladin")
 relic = Object("Holy Relic", 10, "assets/images/equipments/relic.jpg",
                70, "Paladin")
+paladin_item_list = [sword, sword_2, pal_helm, pal_helm_2, pal_armor, pal_armor_2, relic]
+
 
 # Barbarian equipments
 axe = Weapon("War-axe", 10, "assets/images/equipments/axe.jpg",
@@ -240,6 +242,7 @@ fur_king = Armor("Fur of Barbarian King", 10, "assets/images/equipments/fur.jpg"
                   100,"Barbarian")
 necklace = Object("Wolf necklace", 10, "assets/images/equipments/necklace.jpg",
                   70,"Barbarian")
+barbarian_item_list = [axe, claymore, viking_helm, chaos_helm, fur, fur_king, necklace]
 
 
 # Rogue equipments
@@ -253,6 +256,8 @@ leather_armor= Armor("Leather Armor", 10, "assets/images/equipments/leather_armo
                   80,"Rogue")
 lantern = Object("Hooded Lantern", 10, "assets/images/equipments/hooded_lantern.jpg",
                   70,"Rogue")
+rogue_item_list = [dagger, rapier, hood, leather_armor, lantern]
+
 
 # Necromancer equipments
 grimoire = Weapon("Grimoire", 12, "assets/images/equipments/grimoire.jpg",
@@ -267,6 +272,8 @@ necro_cloak = Armor("Cloak of Misery", 5, "assets/images/equipments/necro_cloak2
                   80,"Necromancer")
 necro_ring = Object("Phylactery", 20, "assets/images/equipments/skull_ring.jpg",
                   70,"Necromancer")
+necro_item_list = [grimoire, skull_staff, scythe, necro_crown, necro_cloak, necro_ring]
+
 
 # Wizard equipments
 spellbook = Weapon("Spellbook", 10, "assets/images/equipments/spellbook.jpg",
@@ -281,6 +288,8 @@ wiz_cloak_2 = Armor("Wizard Cloak", 8, "assets/images/equipments/wiz_cloak_2.jpg
                   100,"Wizard")
 magic_orb = Object("Magic Orb", 20, "assets/images/equipments/orb.jpg",
                   70,"Wizard")
+wizard_item_list = [spellbook, mage_staff, wiz_hat, wiz_cloak_1, wiz_cloak_2, magic_orb]
+
 
 # Druid equipments
 whip = Weapon("Thorned Rose whip", 10, "assets/images/equipments/whip.jpg",
@@ -293,6 +302,8 @@ moss_cloak = Armor("Mossvine Mantle", 10, "assets/images/equipments/moss_cloak.j
                   80,"Druid")
 nectar_necklace = Object("Nectar Necklace", 20, "assets/images/equipments/nectar_necklace.jpg",
                   70,"Druid")
+druid_item_list = [whip, hive_staff, rose_crown, moss_cloak, nectar_necklace]
+
 
 # Cryomancer equipments
 ice_wand = Weapon("Blizzard Wand", 10, "assets/images/equipments/ice_wand.jpg",
@@ -307,6 +318,8 @@ ice_armor = Armor("Frostspike Armor", 15, "assets/images/equipments/frost_armor.
                   100,"Cryomancer")
 snow_globe = Object("Globe of Last Winter", 20, "assets/images/equipments/ice_globe.jpg",
                   70,"Cryomancer")
+cryomancer_item_list = [ice_wand, specter, ice_crown, ice_cloak, ice_armor, snow_globe]
+
 
 # Bard equipments
 flute = Weapon("Flute", 10, "assets/images/equipments/flute.jpg",
@@ -319,3 +332,9 @@ bard_cloak = Armor("Elegant Cloak", 10, "assets/images/equipments/bard_cloak.jpg
                   80,"Bard")
 lucky_coin = Object("Lucky Coin", 20, "assets/images/equipments/luck_coin.jpg",
                   70,"Bard")
+bard_item_list = [flute, lute, bard_hat, bard_cloak, lucky_coin]
+
+
+all_possible_items = [health_potion, mana_potion, stamina_potion, paladin_item_list,
+                      wizard_item_list, rogue_item_list, necro_item_list, druid_item_list,
+                      cryomancer_item_list, bard_item_list, barbarian_item_list]
