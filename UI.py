@@ -24,7 +24,7 @@ characters = [
     Necromancer(),
     Druid(),
     Cryomancer(),
-    Bard()
+    Bard(),
 ]
 
 # Buttons, all was (0, 0, 0, 0)
@@ -194,10 +194,10 @@ def draw_grid(color, cell_offset_x, cell_offset_y, inventory, equipped_items=Non
         SLOT_SIZE = 65  # Slot size
         SLOT_PADDING = 5  # Gap between slots
         equipment_slots = [
-            (SCREEN_WIDTH // 2 - 155, 165, SLOT_SIZE, SLOT_SIZE), # Helmet slot
-            (SCREEN_WIDTH // 2 - 155, 165 + (SLOT_SIZE + SLOT_PADDING), SLOT_SIZE, SLOT_SIZE),  # Armor slot
-            (SCREEN_WIDTH // 2 - 155, 165 + 2 * (SLOT_SIZE + SLOT_PADDING), SLOT_SIZE, SLOT_SIZE),  # Weapon slot
-            (SCREEN_WIDTH // 2 - 155, 165 + 3 * (SLOT_SIZE + SLOT_PADDING), SLOT_SIZE, SLOT_SIZE)  # Object slot
+            (SCREEN_WIDTH // 2 - 155, 115, SLOT_SIZE, SLOT_SIZE), # Helmet slot
+            (SCREEN_WIDTH // 2 - 155, 115 + (SLOT_SIZE + SLOT_PADDING), SLOT_SIZE, SLOT_SIZE),  # Armor slot
+            (SCREEN_WIDTH // 2 - 155, 115 + 2 * (SLOT_SIZE + SLOT_PADDING), SLOT_SIZE, SLOT_SIZE),  # Weapon slot
+            (SCREEN_WIDTH // 2 - 155, 115 + 3 * (SLOT_SIZE + SLOT_PADDING), SLOT_SIZE, SLOT_SIZE)  # Object slot
         ]
         # Position of equipped items in slots
         equipped_items_dict = {
@@ -319,21 +319,21 @@ def draw_battle_ui(screen, selected_character, enemy):
     else:
         screen.blit(battle_img, (0, 0))
     # Player and enemy picture
-    if selected_character == characters[0]:
+    if isinstance(selected_character, Barbarian):
         screen.blit(barbarian_img, (20, 150))
-    elif selected_character == characters[1]:
+    elif isinstance(selected_character, Wizard):
         screen.blit(wizard_img, (20, 150))
-    elif selected_character == characters[2]:
+    elif isinstance(selected_character, Rogue):
         screen.blit(rogue_img, (20, 150))
-    elif selected_character == characters[3]:
+    elif isinstance(selected_character, Paladin):
         screen.blit(paladin_img, (20, 150))
-    elif selected_character == characters[4]:
+    elif isinstance(selected_character, Necromancer):
         screen.blit(necromancer_img, (20, 150))
-    elif selected_character == characters[5]:
+    elif isinstance(selected_character, Druid):
         screen.blit(druid_img, (20, 150))
-    elif selected_character == characters[6]:
+    elif isinstance(selected_character, Cryomancer):
         screen.blit(cryo_img, (20, 150))
-    elif selected_character == characters[7]:
+    elif isinstance(selected_character, Bard):
         screen.blit(bard_img, (20, 150))
     """# Harci napló megjelenítése
     y_offset = 400
@@ -489,6 +489,7 @@ def draw_quest_popup(character):
     pygame.draw.rect(screen, BROWN, popup_rect_quest)  # Popup background
     screen.blit(text_surface, (popup_rect_quest.x, popup_rect_quest.y + 10))
 
+
 def draw_save_popup():
     pygame.draw.rect(screen, DARKER_GREY, popup_rect)  # Popup háttér
     text_surface = button_font.render("Saved successfully", True, IVORY)
@@ -496,3 +497,9 @@ def draw_save_popup():
     confirm_save_button = draw_button("OK", 200, 350, 200, 50)
 
     return confirm_save_button
+
+def draw_pet(img, text):
+    screen.blit(img, (SCREEN_WIDTH // 2 - 250, 495))
+    pet_text = item_stat_font.render(
+        text, True, IVORY)
+    screen.blit(pet_text, (SCREEN_WIDTH // 2 - 330, 475))

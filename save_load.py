@@ -2,6 +2,7 @@
 import json
 from characters import Barbarian, Wizard, Rogue, Paladin, Necromancer, Druid, Cryomancer, Bard
 from items import *  # A list of all item instances
+import os
 
 
 def get_item_by_name(name):
@@ -17,6 +18,7 @@ def get_item_by_name(name):
 
 
 def save_game(character, filename="savegame.json"):
+    print("Saving game...")
     data = {
         "name": character.name,
         "class": character.__class__.__name__,
@@ -39,7 +41,12 @@ def save_game(character, filename="savegame.json"):
         json.dump(data, f, indent=4)
     print("Game saved successfully.")
 
+
 def load_game(filename="savegame.json"):
+    print("Loading game...")
+    if not os.path.exists(filename):
+        print("No saving file.")
+        return None
     with open(filename, "r") as f:
         data = json.load(f)
 
@@ -63,6 +70,7 @@ def load_game(filename="savegame.json"):
     character.name = data["name"]
     character.level = data["level"]
     character.health = data["health"]
+    character.attack = data["attack"]
     character.max_health = data["max_health"]
     character.mana = data["mana"]
     character.max_mana = data["max_mana"]

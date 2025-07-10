@@ -21,3 +21,13 @@ swarmcaller_log = ("Collect 6 Bloodstones to enter Crimson castle, "
 
 bard_log = ("Collect 6 Bloodstones to enter Crimson castle, "
                 "defeat the Vampires for glory and fame!")
+
+# Pet logs
+wizard_pet_log = "Pet: Owl, habitat: Laboratory"
+paladin_pet_log = "Pet: Lion, habitat: Chapel"
+necromancer_pet_log = "Pet: Raven, habitat: Cemetery"
+barbarian_pet_log = "Pet: Wolf, habitat: Dark forest"
+rogue_pet_log = "Pet: Rat, habitat: Haunted ruin"
+swarmcaller_pet_log = "Pet: Wasp, habitat: Enchanted forest"
+cryomancer_pet_log = "Pet: Mammoth, habitat: Frosty peaks"
+bard_pet_log = "Pet: Songbird, habitat: Tavern"
