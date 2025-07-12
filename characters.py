@@ -242,6 +242,7 @@ class Character:
         return (f"{self.name} leveled up to level {self.level}! "
                 f"XP needed for next level: {self.xp_to_next_level}")
 
+
 class Barbarian(Character):
     def __init__(self):
         super().__init__("Barbarian", health=45, attack=5, armor=0, mana=0,
