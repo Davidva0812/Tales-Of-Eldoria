@@ -45,7 +45,7 @@ Explore mysterious realms, collect enchanted equipment, face powerful enemies, a
 
 A standalone .exe version of the game uploaded: 
 **Tales_of_Eldoria.zip**.
-You can download it from this link: https://drive.google.com/file/d/1-XFHMem5XTThKSJEdzqZUa5DNnwEcF2e/view?usp=drive_link.
+You can download it from this link: https://drive.google.com/file/d/1nWMg8icTd0n36QpDicrfmOLsb2GKU4ME/view?usp=drive_link.
 
 This allows you to try **Tales of Eldoria** without installing Python or Pygame.
 
