@@ -1,6 +1,5 @@
 import pygame
 from pygame import FULLSCREEN
-
 from locations import *
 from utils import resource_path
 
@@ -8,10 +7,9 @@ from utils import resource_path
 pygame.init()
 pygame.mixer.init()
 
-
 infoObject = pygame.display.Info()
 SCREEN_WIDTH, SCREEN_HEIGHT = infoObject.current_w, infoObject.current_h
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
 
 clock = pygame.time.Clock()
 pygame.display.set_caption("Fantasy RPG Game")

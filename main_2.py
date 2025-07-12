@@ -61,7 +61,6 @@ player_name = ""
 bless_cooldown = 0  # When was the latest bonus
 bless_delay = 150000  # 2.5 min
 enemy_rects = []
-#berserk_pressed = False
 
 
 running = True
@@ -523,8 +522,8 @@ while running:
                     battle_music_playing = False
                     adventure_channel.play(adventure_theme, loops=-1)
                 if load_button_rect.collidepoint(mouse_x, mouse_y):
-                    selected_character = load_game()
                     selected_character.health = 1
+                    selected_character = load_game()
                     selected_character.alive = True
                     game_state = TOWN
 
@@ -893,16 +892,16 @@ while running:
         draw_battle_ui(screen, selected_character, selected_enemy)
         draw_health_bar(screen, 60, 420, selected_character.health, selected_character.max_health)
         draw_enemy_attack_point(screen, selected_enemy.attack)
-        if selected_character == characters[0]:
+        if isinstance(selected_character, Barbarian):
             draw_hero_attack_and_armor(screen, selected_character.attack, selected_character.armor)
-        if selected_character == characters[2]:
+        if isinstance(selected_character, Rogue):
             draw_dodge_chance(screen, 20, 520)
-        if selected_character == characters[5]:
+        if isinstance(selected_character, Druid):
             draw_nature_favor(screen, 20, 520)
-        if selected_character == characters[7]:
+        if isinstance(selected_character, Bard):
             draw_soundwave(screen, 20, 520)
             draw_tricky_finale(screen, 20, 560)
-        if selected_character == characters[0] or selected_character == characters[2]:
+        if isinstance(selected_character, Barbarian) or isinstance(selected_character, Rogue):
             draw_stamina_bar(screen, 60, 470, selected_character.stamina, selected_character.max_stamina)
         else:
             draw_mana_bar(screen, 60, 470, selected_character.mana, selected_character.max_mana)

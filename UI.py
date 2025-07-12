@@ -28,16 +28,6 @@ characters = [
 ]
 
 # Buttons, all was (0, 0, 0, 0)
-"""start_button = pygame.Rect(300, 250, 200, 50)  # (x, y, width, height)
-exit_button = pygame.Rect(300, 390, 200, 50)
-load_button = pygame.Rect(300, 320, 200, 50)
-lab_button = pygame.Rect(600, 60, 200, 50)
-blacksmith_button = pygame.Rect(600, 130, 200, 50)
-back_button = pygame.Rect(600, 550, 200, 50)
-tavern_button = pygame.Rect(600, 200, 200, 50)
-profile_button = pygame.Rect(600, 340, 200, 50)
-explore_button = pygame.Rect(600, 410, 200, 50)
-sounds_button = pygame.Rect(600, 200, 200, 50)"""
 input_box = pygame.Rect(160, 240, 485, 80)
 back_button_rect = pygame.Rect(600, 550, 200, 50)
 yes_button_rect = pygame.Rect(100, 350, 200, 50)
@@ -53,6 +43,7 @@ confirm_save_button_rect = pygame.Rect(200, 350, 200, 50)
 popup_rect = pygame.Rect(100, 250, 450, 150)
 popup_rect_quest = pygame.Rect(20, 100, 800, 50)
 popup_rect_battle = pygame.Rect(200, 250, 400, 250)
+
 
 def draw_button(text, x, y, width, height):
     """Draws buttons and checks clicking"""
@@ -274,6 +265,7 @@ def bless_in_chapel(character):
     else:
         return f"{character.name} has not enough gold!"
 
+
 def draw_enemies(game_state):
     if game_state not in location_enemies:
         return  # If no current location, exit
@@ -335,12 +327,6 @@ def draw_battle_ui(screen, selected_character, enemy):
         screen.blit(cryo_img, (20, 150))
     elif isinstance(selected_character, Bard):
         screen.blit(bard_img, (20, 150))
-    """# Harci napló megjelenítése
-    y_offset = 400
-    for log in battle_log[-5:]:  # Csak az utolsó 5 eseményt mutatjuk
-        text = font.render(log, True, (255, 255, 255))
-        screen.blit(text, (50, y_offset))
-        y_offset += 30"""
 
     attack_button = draw_button("Attack", 300, 190, 200, 50)
     ability_button = draw_button("Use Ability", 300, 260, 200, 50)
@@ -368,7 +354,7 @@ def draw_health_bar(surface, x, y, current_hp, max_hp, width=150, height=30):
 
 
 def draw_mana_bar(surface, x, y, current_mana, max_mana, width=150, height=30):
-    mana_ratio = max(0, current_mana / max_mana)
+    mana_ratio = max(0, current_mana / max_mana) if max_mana > 0 else 0
     pygame.draw.rect(surface, (0, 0, 0), (x - 2, y - 2, width + 4, height + 4))
     if mana_ratio > 0.6:
         color = BLUE
@@ -383,7 +369,7 @@ def draw_mana_bar(surface, x, y, current_mana, max_mana, width=150, height=30):
 
 
 def draw_stamina_bar(surface, x, y, current_stamina, max_stamina, width=150, height=30):
-    stamina_ratio = max(0, current_stamina / max_stamina)
+    stamina_ratio = max(0, current_stamina / max_stamina) if max_stamina > 0 else 0
     pygame.draw.rect(surface, (0, 0, 0), (x - 2, y - 2, width + 4, height + 4))
     if stamina_ratio > 0.6:
         color = (0, 184, 37)
@@ -497,6 +483,7 @@ def draw_save_popup():
     confirm_save_button = draw_button("OK", 200, 350, 200, 50)
 
     return confirm_save_button
+
 
 def draw_pet(img, text):
     screen.blit(img, (SCREEN_WIDTH // 2 - 250, 495))

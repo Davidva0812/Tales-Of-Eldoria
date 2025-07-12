@@ -1,3 +1,23 @@
+# __pycache__ and other Python build files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# PyInstaller output
+dist/
 build/
-.dist/
-.idea
+*.spec
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+
+# My files
+main_2.py
+main_2.spec

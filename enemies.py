@@ -42,12 +42,6 @@ class Enemy:
         self.enemy_alive = False
         self.health = 0
 
-    """def handle_equipment_loot(self, selected_character):
-        if selected_character.name == "Paladin":
-            selected_character.inventory.add_item(sword_2)
-        else:
-            pass"""
-
 
 class TheCount(Enemy):
     def enemy_attack(self, player):
@@ -89,5 +83,4 @@ class TheBride(Enemy):
         if self.health > self.max_health:
             self.health = self.max_health
 
-        print(
-            f"{self.name} healed for {life_steal} HP. Current HP: {self.health}/{self.max_health}")
+        print(f"{self.name} healed for {life_steal} HP. Current HP: {self.health}/{self.max_health}")

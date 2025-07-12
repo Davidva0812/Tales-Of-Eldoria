@@ -1,6 +1,7 @@
 import pygame
 from utils import resource_path
 
+
 class Equipment:
     def __init__(self, name, equipment_type, icon, cost, required_class=None):
         self.name = name
@@ -202,11 +203,11 @@ class ArmorAmplifier(OtherItem):
         else:
             return f"{target.name} has no armor to equip!"
 
-health_potion = HealthPotion("Health Potion", "assets/images/h_potion.png",
+health_potion = HealthPotion("Health Potion", resource_path("assets/images/h_potion.png"),
                              30, 50)
-mana_potion = ManaPotion("Mana Potion","assets/images/m_potion.png",
+mana_potion = ManaPotion("Mana Potion",resource_path("assets/images/m_potion.png"),
                          30, 30)
-stamina_potion = StaminaPotion("Stamina Potion", "assets/images/stam_potion.png",
+stamina_potion = StaminaPotion("Stamina Potion", resource_path("assets/images/stam_potion.png"),
                                30, 30)
 
 #Paladin equipments

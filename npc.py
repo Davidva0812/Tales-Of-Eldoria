@@ -3,6 +3,7 @@ from characters import Inventory
 from items import *
 from utils import resource_path
 
+
 selected_item = None
 
 class NPC:
