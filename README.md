@@ -41,14 +41,6 @@ Explore mysterious realms, collect enchanted equipment, face powerful enemies, a
 - Unique Companions to find for the specific classes
 ---
 
- ## 🧪 Try the Game
-
-A standalone .exe version of the game uploaded: 
-**Tales_of_Eldoria.zip**.
-You can download it from this link: https://drive.google.com/file/d/1nWMg8icTd0n36QpDicrfmOLsb2GKU4ME/view?usp=drive_link.
-
-This allows you to try **Tales of Eldoria** without installing Python or Pygame.
-
 **More Updates will be available soon!**
 > ⚠️ Please note: Not all source files will be publicly shared — this is a playable preview version,
 > not the full codebase.
