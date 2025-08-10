@@ -1,7 +1,7 @@
 # 🧙‍♂️ Tales of Eldoria 🏰
 *A pixel-fantasy adventure of might, magic, and mystery...*
 
-## ✨ Overview
+## 📜 Overview
 
 **Eldoria** is a fantasy-themed RPG written in Python using Pygame.  
 Choose from legendary classes like the Barbarian, Wizard, Rogue, Paladin, Necromancer
@@ -10,6 +10,14 @@ and more...
 Explore mysterious realms, collect enchanted equipment, face powerful enemies, and master each hero’s unique abilities!
 
 ---
+
+You can check out the official website of the game here:
+
+👉 https://davidva0812.github.io/Fantasy-website/
+
+On the homepage, you will find a gameplay video that showcases the core mechanics 
+and visual style of the game. Feel free to explore the site to learn more about the features, 
+updates, and development progress.
 
 ## 🎮 Controls
 
