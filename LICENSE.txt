@@ -1,4 +1,4 @@
-Copyright (c) 2025 David Varga
+Copyright (c) 2025 David Varga.
 
 All rights reserved.
 
